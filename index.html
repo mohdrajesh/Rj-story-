@@ -7,8 +7,6 @@
 <title>Cash Bonus Giveaway</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
-
 *{
   box-sizing:border-box;
 }
@@ -20,705 +18,500 @@ html,body{
 }
 
 body{
-  font-family:'Montserrat',sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   color:white;
   overflow-x:hidden;
-
   background:
-    radial-gradient(circle at 15% 25%,rgba(0,120,255,.35),transparent 30%),
-    radial-gradient(circle at 90% 70%,rgba(255,0,180,.25),transparent 30%),
-    linear-gradient(135deg,#030616,#07133b 50%,#02030d);
+    radial-gradient(circle at 15% 20%,#2636a8 0,transparent 25%),
+    radial-gradient(circle at 90% 70%,#7b147f 0,transparent 30%),
+    linear-gradient(135deg,#03051c,#08002d 45%,#02091e);
 }
 
-/* Animated background lights */
+/* BACKGROUND LIGHTS */
 
-body::before{
+body:before,
+body:after{
   content:"";
   position:fixed;
-  inset:-50%;
-  z-index:-2;
-
-  background:
-    radial-gradient(circle,#00aaff 0%,transparent 18%),
-    radial-gradient(circle,#ff00d4 0%,transparent 15%),
-    radial-gradient(circle,#0044ff 0%,transparent 18%);
-
-  background-size:35% 35%,30% 30%,40% 40%;
-  background-position:0% 20%,100% 80%,50% 100%;
-  background-repeat:no-repeat;
-
-  animation:bgMove 12s ease-in-out infinite alternate;
-}
-
-@keyframes bgMove{
-  from{
-    transform:translate(-3%,-3%) scale(1);
-  }
-  to{
-    transform:translate(3%,3%) scale(1.08);
-  }
-}
-
-/* Small particles */
-
-.particle{
-  position:fixed;
-  width:4px;
-  height:4px;
+  width:320px;
+  height:320px;
   border-radius:50%;
-  background:#00d9ff;
-  box-shadow:0 0 15px #00d9ff;
-  opacity:.7;
-  animation:particleMove linear infinite;
-  z-index:-1;
+  filter:blur(100px);
+  opacity:.35;
+  z-index:-2;
+  animation:orb 8s infinite alternate ease-in-out;
 }
 
-@keyframes particleMove{
+body:before{
+  background:#006eff;
+  top:-100px;
+  left:-80px;
+}
+
+body:after{
+  background:#ff00d4;
+  right:-100px;
+  bottom:-100px;
+  animation-delay:2s;
+}
+
+@keyframes orb{
   from{
-    transform:translateY(110vh);
+    transform:translate(0,0);
   }
   to{
-    transform:translateY(-20vh);
+    transform:translate(60px,-40px);
   }
 }
 
-/* Main */
+/* MAIN */
 
-.container{
+.page{
   width:100%;
-  max-width:1100px;
+  max-width:1250px;
   margin:auto;
-  padding:35px 18px 50px;
+  padding:25px 20px 35px;
 }
 
-/* Header */
+/* TITLE */
 
-.header{
+.title{
   text-align:center;
-  margin-bottom:30px;
+  position:relative;
+  z-index:5;
 }
 
-.money-icon{
-  font-size:55px;
+.money{
+  font-size:58px;
+  filter:drop-shadow(0 0 15px #48ff72);
+  vertical-align:middle;
+}
+
+.title h1{
   display:inline-block;
-  filter:drop-shadow(0 0 15px #44ff66);
-  animation:moneyFloat 2s ease-in-out infinite;
-}
-
-@keyframes moneyFloat{
-  0%,100%{
-    transform:translateY(0) rotate(-2deg);
-  }
-  50%{
-    transform:translateY(-8px) rotate(2deg);
-  }
-}
-
-.header h1{
-  margin:5px 0 0;
-
-  font-size:clamp(42px,8vw,82px);
-  line-height:.95;
+  margin:0;
+  font-size:clamp(38px,7vw,82px);
+  line-height:.9;
   font-weight:900;
-  letter-spacing:-2px;
-
-  color:white;
-
+  letter-spacing:2px;
   text-shadow:
-    0 4px 0 #222,
-    0 8px 25px rgba(0,0,0,.7);
+    0 4px 0 #555,
+    0 0 20px rgba(255,255,255,.5);
 }
 
-.header h1 span{
+.title h1 span{
   display:block;
-  color:#08dcff;
-
-  font-size:clamp(38px,7vw,72px);
-
-  font-style:italic;
-
+  color:#00eaff;
+  font-size:.9em;
   text-shadow:
-    0 0 8px #00d9ff,
-    0 0 25px #008cff,
-    0 4px 0 #003a5c;
+    0 0 8px #00eaff,
+    0 0 25px #008cff;
+  transform:skew(-8deg);
 }
 
 .demo{
-  display:inline-block;
-
-  margin-top:20px;
-  padding:8px 25px;
-
-  color:#ffd438;
-
-  font-size:22px;
+  margin:20px 0 15px;
+  color:#ffc928;
+  font-size:25px;
   font-weight:900;
-
-  text-shadow:0 0 15px rgba(255,190,0,.5);
+  text-shadow:0 0 12px #ff9d00;
 }
 
-.demo::before,
-.demo::after{
-  content:"★";
-  margin:0 12px;
-}
-
-/* Online box */
-
-.stats{
-  display:flex;
-  justify-content:center;
-  margin:10px auto 35px;
-}
-
-.stats-box{
-  display:flex;
+.status{
+  display:inline-flex;
   align-items:center;
-  justify-content:center;
   gap:18px;
-
-  padding:12px 25px;
-
+  padding:13px 22px;
   border:1px solid rgba(255,255,255,.35);
-  border-radius:30px;
-
+  border-radius:40px;
   background:rgba(0,0,0,.35);
-  backdrop-filter:blur(10px);
-
-  box-shadow:0 0 25px rgba(0,130,255,.15);
-
-  font-size:15px;
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.05),
+    0 0 25px rgba(0,150,255,.12);
+  font-size:16px;
 }
 
 .green-dot{
   width:11px;
   height:11px;
+  display:inline-block;
   border-radius:50%;
-  background:#00ff75;
-  box-shadow:0 0 12px #00ff75;
+  background:#00ff72;
+  box-shadow:0 0 15px #00ff72;
 }
 
-.online-number{
-  color:#00ff7b;
-  font-weight:900;
-}
+/* HERO */
 
-/* Offer area */
-
-.offer-area{
+.hero{
   position:relative;
-
-  max-width:850px;
-  margin:0 auto;
-
-  padding:30px 20px 40px;
-
-  min-height:600px;
-
-  border-radius:30px;
-
-  background:
-    linear-gradient(
-      110deg,
-      rgba(0,0,0,.8),
-      rgba(8,15,25,.65)
-    );
-
-  border:1px solid rgba(255,255,255,.08);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.6),
-    inset 0 0 50px rgba(0,120,255,.08);
+  min-height:780px;
+  margin-top:10px;
 }
 
-/*
-  Character silhouette.
-  This is a CSS-built decorative character.
-*/
+/* FLOOR */
+
+.floor{
+  position:absolute;
+  left:4%;
+  right:4%;
+  bottom:5px;
+  height:80px;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse,
+      rgba(0,211,255,.35),
+      rgba(107,0,255,.18) 35%,
+      transparent 70%);
+  filter:blur(8px);
+}
+
+/* CHARACTER */
 
 .character{
   position:absolute;
-
-  left:-100px;
-  bottom:0;
-
-  width:300px;
-  height:560px;
-
-  pointer-events:none;
+  left:1%;
+  bottom:20px;
+  width:47%;
+  height:720px;
+  min-width:350px;
+  z-index:4;
+  animation:characterFloat 4s ease-in-out infinite;
 }
 
-/* head */
-
-.head{
-  position:absolute;
-  left:105px;
-  top:20px;
-
-  width:105px;
-  height:125px;
-
-  border-radius:48% 48% 45% 45%;
-
-  background:
-    linear-gradient(135deg,#f1b27d,#9d593b);
-
-  box-shadow:
-    inset -15px -5px 20px rgba(0,0,0,.3),
-    0 15px 30px rgba(0,0,0,.5);
-}
-
-/* hair */
-
-.hair{
-  position:absolute;
-
-  left:98px;
-  top:10px;
-
-  width:120px;
-  height:55px;
-
-  border-radius:70% 40% 20% 20%;
-
-  background:#10151d;
-
-  transform:rotate(-8deg);
-
-  box-shadow:0 0 12px #111;
-}
-
-/* sunglasses */
-
-.glasses{
-  position:absolute;
-
-  left:112px;
-  top:67px;
-
-  width:100px;
-  height:25px;
-
-  z-index:3;
-
-  display:flex;
-  justify-content:space-between;
-}
-
-.glasses span{
-  width:43px;
-  height:23px;
-
-  background:#050505;
-
-  border:2px solid #555;
-
-  border-radius:7px;
-
-  box-shadow:0 0 8px #000;
-}
-
-/* body */
-
-.body-man{
-  position:absolute;
-
-  left:72px;
-  top:130px;
-
-  width:170px;
-  height:350px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #050608,
-      #222630,
-      #050608
-    );
-
-  clip-path:polygon(
-    28% 0,
-    72% 0,
-    100% 35%,
-    82% 100%,
-    18% 100%,
-    0 35%
-  );
-
-  box-shadow:0 20px 40px rgba(0,0,0,.7);
-}
-
-/* Coat left */
-
-.coat-left{
-  position:absolute;
-
-  left:35px;
-  top:125px;
-
-  width:130px;
-  height:430px;
-
-  background:linear-gradient(
-    110deg,
-    #08090d,
-    #292d36,
-    #07080b
-  );
-
-  clip-path:polygon(
-    45% 0,
-    100% 5%,
-    78% 100%,
-    0 100%,
-    15% 30%
-  );
-
-  transform:rotate(4deg);
-
-  box-shadow:0 20px 40px #000;
-}
-
-/* Coat right */
-
-.coat-right{
-  position:absolute;
-
-  left:165px;
-  top:130px;
-
-  width:160px;
-  height:430px;
-
-  background:linear-gradient(
-    75deg,
-    #08090d,
-    #292d36,
-    #050609
-  );
-
-  clip-path:polygon(
-    0 5%,
-    55% 0,
-    100% 30%,
-    100% 100%,
-    20% 100%
-  );
-
-  transform:rotate(-3deg);
-
-  box-shadow:0 20px 40px #000;
-}
-
-/* Offer cards */
-
-.offers{
-  position:relative;
-
-  width:100%;
-  max-width:650px;
-
-  margin-left:auto;
-
-  z-index:5;
-}
-
-.offer{
-  position:relative;
-
-  display:flex;
-  align-items:center;
-  gap:20px;
-
-  min-height:150px;
-
-  margin-bottom:18px;
-  padding:20px 25px;
-
-  border-radius:20px;
-
-  background:rgba(3,12,13,.85);
-
-  border:1px solid rgba(0,255,120,.7);
-
-  box-shadow:
-    0 0 20px rgba(0,255,100,.15),
-    inset 0 0 25px rgba(0,255,100,.05);
-
-  overflow:hidden;
-
-  transition:
-    transform .3s,
-    box-shadow .3s;
-}
-
-.offer:nth-child(2){
-  border-color:#00c8ff;
-  box-shadow:0 0 20px rgba(0,190,255,.2);
-}
-
-.offer:nth-child(3){
-  border-color:#ffae00;
-  box-shadow:0 0 20px rgba(255,150,0,.2);
-}
-
-.offer:hover{
-  transform:translateX(-8px) scale(1.02);
-}
-
-.offer::after{
-  content:"";
-
-  position:absolute;
-  width:100px;
-  height:100px;
-
-  right:-30px;
-  top:-40px;
-
-  border-radius:50%;
-
-  background:rgba(255,255,255,.08);
-
-  filter:blur(5px);
-}
-
-/* Money graphic */
-
-.cash{
-  width:115px;
-  min-width:115px;
-
-  font-size:55px;
-
-  filter:
-    drop-shadow(0 0 8px rgba(80,255,80,.5));
-
-  animation:cashFloat 2.5s ease-in-out infinite;
-}
-
-@keyframes cashFloat{
+@keyframes characterFloat{
   0%,100%{
     transform:translateY(0);
   }
   50%{
-    transform:translateY(-5px);
+    transform:translateY(-7px);
   }
 }
 
-.offer-content{
-  flex:1;
+.character svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+/* JACKET GLOW */
+
+.jacketGlow{
+  filter:
+    drop-shadow(0 0 8px rgba(0,180,255,.4))
+    drop-shadow(0 0 25px rgba(120,0,255,.2));
+}
+
+/* OFFERS AREA */
+
+.coatOffers{
+  position:absolute;
+  z-index:8;
+  width:46%;
+  right:4%;
+  top:145px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* OFFER */
+
+.offer{
+  min-height:135px;
+  padding:17px 20px;
+  border-radius:18px;
+
+  display:grid;
+  grid-template-columns:75px 1fr;
+  align-items:center;
+  gap:15px;
+
+  background:
+    linear-gradient(135deg,
+      rgba(0,0,0,.82),
+      rgba(4,25,36,.72));
+
+  border:1px solid rgba(255,255,255,.25);
+
+  box-shadow:
+    inset 0 0 25px rgba(255,255,255,.04),
+    0 8px 35px rgba(0,0,0,.45);
+
+  backdrop-filter:blur(5px);
+
+  animation:offerFloat 3s ease-in-out infinite;
+}
+
+.offer:nth-child(2){
+  animation-delay:.35s;
+}
+
+.offer:nth-child(3){
+  animation-delay:.7s;
+}
+
+@keyframes offerFloat{
+  0%,100%{
+    transform:translateX(0);
+  }
+  50%{
+    transform:translateX(4px);
+  }
+}
+
+.offer.green{
+  border-color:#53ff72;
+  box-shadow:
+    0 0 20px rgba(30,255,80,.15),
+    inset 0 0 25px rgba(30,255,80,.06);
+}
+
+.offer.blue{
+  border-color:#00c8ff;
+  box-shadow:
+    0 0 20px rgba(0,200,255,.15),
+    inset 0 0 25px rgba(0,200,255,.06);
+}
+
+.offer.orange{
+  border-color:#ffae2f;
+  box-shadow:
+    0 0 20px rgba(255,160,20,.15),
+    inset 0 0 25px rgba(255,160,20,.06);
+}
+
+.cashIcon{
+  font-size:45px;
+  filter:drop-shadow(0 0 8px rgba(80,255,80,.5));
+}
+
+.offerText{
   text-align:left;
 }
 
-.offer-title{
-  display:flex;
-  align-items:baseline;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
 .amount{
-  font-size:52px;
+  font-size:40px;
+  line-height:1;
   font-weight:900;
-  color:#66ff7a;
-
-  text-shadow:0 0 15px rgba(0,255,80,.4);
 }
 
-.offer:nth-child(2) .amount{
-  color:#00d9ff;
+.green .amount{
+  color:#58ff6c;
+  text-shadow:0 0 15px #1dff45;
 }
 
-.offer:nth-child(3) .amount{
-  color:#ffad22;
+.blue .amount{
+  color:#22d8ff;
+  text-shadow:0 0 15px #00aaff;
+}
+
+.orange .amount{
+  color:#ffb52e;
+  text-shadow:0 0 15px #ff8c00;
 }
 
 .bonus{
-  font-size:22px;
+  font-size:17px;
   font-weight:800;
+  margin-left:8px;
 }
 
 .offer p{
-  margin:8px 0 15px;
-
-  color:#ddd;
-
-  font-size:15px;
-}
-
-/* Button */
-
-.button{
-  border:0;
-  border-radius:12px;
-
-  padding:11px 35px;
-
-  color:white;
-
-  font-size:17px;
-  font-weight:800;
-
-  cursor:pointer;
-
-  background:linear-gradient(
-    180deg,
-    #36ff65,
-    #08bd42
-  );
-
-  box-shadow:
-    0 0 15px rgba(0,255,90,.35),
-    inset 0 1px rgba(255,255,255,.4);
-
-  transition:all .25s;
-}
-
-.offer:nth-child(2) .button{
-  background:linear-gradient(
-    180deg,
-    #20d9ff,
-    #008cff
-  );
-
-  box-shadow:0 0 15px rgba(0,180,255,.4);
-}
-
-.offer:nth-child(3) .button{
-  background:linear-gradient(
-    180deg,
-    #ffb51c,
-    #ff7000
-  );
-
-  box-shadow:0 0 15px rgba(255,130,0,.4);
-}
-
-.button:hover{
-  transform:scale(1.06);
-}
-
-.button:active{
-  transform:scale(.96);
-}
-
-/* Message */
-
-#message{
-  display:none;
-
-  margin:25px auto 0;
-  padding:14px 20px;
-
-  max-width:550px;
-
-  border-radius:15px;
-
-  background:rgba(0,0,0,.55);
-
-  border:1px solid rgba(255,255,255,.2);
-
-  font-weight:700;
-}
-
-/* Footer */
-
-.footer{
-  text-align:center;
-
-  margin-top:35px;
-
-  color:#ddd;
-
+  margin:8px 0 12px;
   font-size:14px;
+  color:#ddd;
 }
 
-.footer strong{
+.get{
+  border:0;
+  border-radius:25px;
+  padding:10px 28px;
   color:white;
+  font-weight:800;
+  font-size:15px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.green .get{
+  background:#18d957;
+  box-shadow:0 0 15px rgba(24,217,87,.5);
+}
+
+.blue .get{
+  background:#079ee8;
+  box-shadow:0 0 15px rgba(0,170,255,.5);
+}
+
+.orange .get{
+  background:#ff9200;
+  box-shadow:0 0 15px rgba(255,150,0,.5);
+}
+
+.get:hover{
+  transform:scale(1.07);
+  filter:brightness(1.2);
+}
+
+/* BOTTOM */
+
+.bottom{
+  position:relative;
+  z-index:10;
+  text-align:center;
+  margin-top:-15px;
+  font-size:15px;
+  color:#ddd;
+}
+
+.features{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:25px;
+  margin-bottom:14px;
 }
 
 .thanks{
-  margin-top:15px;
-
-  font-size:17px;
+  font-size:18px;
   font-weight:700;
 }
 
-/* Mobile */
+.heart{
+  color:#ff334f;
+  text-shadow:0 0 10px #ff0033;
+}
+
+/* MESSAGE */
+
+#message{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  z-index:100;
+  display:none;
+
+  background:rgba(0,0,0,.9);
+  border:1px solid #00d9ff;
+  border-radius:15px;
+
+  padding:15px 25px;
+
+  box-shadow:0 0 25px rgba(0,200,255,.4);
+
+  font-weight:700;
+}
+
+/* MOBILE */
 
 @media(max-width:850px){
 
-  .character{
-    opacity:.18;
-    left:-90px;
-    transform:scale(.8);
-    transform-origin:bottom left;
-  }
-
-  .offers{
-    max-width:100%;
-  }
-
-  .offer{
-    margin-left:0;
-  }
-}
-
-@media(max-width:600px){
-
-  .container{
-    padding:25px 12px 40px;
-  }
-
-  .header h1{
-    letter-spacing:-1px;
-  }
-
-  .stats-box{
-    flex-wrap:wrap;
-    gap:8px 12px;
-    font-size:12px;
-  }
-
-  .offer-area{
+  .page{
     padding:20px 10px 30px;
   }
 
-  .offer{
-    min-height:130px;
-    padding:16px 12px;
-    gap:10px;
-  }
-
-  .cash{
-    width:70px;
-    min-width:70px;
+  .money{
     font-size:40px;
   }
 
+  .title h1{
+    font-size:43px;
+  }
+
+  .status{
+    font-size:13px;
+    gap:9px;
+    padding:10px 13px;
+  }
+
+  .hero{
+    min-height:1100px;
+  }
+
+  .character{
+    width:100%;
+    height:610px;
+    left:-2%;
+    bottom:420px;
+    min-width:0;
+  }
+
+  .coatOffers{
+    width:88%;
+    right:6%;
+    top:500px;
+  }
+
+  .offer{
+    min-height:125px;
+  }
+
   .amount{
-    font-size:36px;
+    font-size:32px;
   }
 
   .bonus{
-    font-size:15px;
+    display:block;
+    margin:5px 0 0;
+  }
+
+  .cashIcon{
+    font-size:38px;
+  }
+
+}
+
+@media(max-width:450px){
+
+  .title h1{
+    font-size:34px;
+  }
+
+  .demo{
+    font-size:20px;
+  }
+
+  .hero{
+    min-height:1010px;
+  }
+
+  .character{
+    height:500px;
+    bottom:430px;
+  }
+
+  .coatOffers{
+    top:405px;
+    width:94%;
+    right:3%;
+  }
+
+  .offer{
+    grid-template-columns:55px 1fr;
+    min-height:120px;
+    padding:14px;
+  }
+
+  .cashIcon{
+    font-size:32px;
+  }
+
+  .amount{
+    font-size:28px;
+  }
+
+  .bonus{
+    font-size:13px;
   }
 
   .offer p{
     font-size:12px;
-    margin:5px 0 10px;
   }
 
-  .button{
-    padding:9px 20px;
-    font-size:14px;
-  }
-
-  .character{
-    left:-150px;
-    opacity:.12;
+  .get{
+    padding:8px 20px;
+    font-size:13px;
   }
 }
 </style>
@@ -726,57 +519,38 @@ body::before{
 
 <body>
 
-<!-- Background particles -->
+<div class="page">
 
-<div class="particle" style="left:10%;animation-duration:8s;"></div>
-<div class="particle" style="left:25%;animation-duration:12s;"></div>
-<div class="particle" style="left:42%;animation-duration:9s;"></div>
-<div class="particle" style="left:65%;animation-duration:14s;"></div>
-<div class="particle" style="left:82%;animation-duration:10s;"></div>
+  <!-- TITLE -->
 
+  <div class="title">
 
-<div class="container">
+    <div>
+      <span class="money">💵</span>
 
-  <!-- Header -->
-
-  <header class="header">
-
-    <div class="money-icon">💵</div>
-
-    <h1>
-      CASH BONUS
-      <span>GIVEAWAY</span>
-    </h1>
-
-    <div class="demo">
-      DEMO GIVEAWAY
+      <h1>
+        CASH BONUS
+        <span>GIVEAWAY</span>
+      </h1>
     </div>
 
-  </header>
+    <div class="demo">
+      ★ DEMO GIVEAWAY ★
+    </div>
 
-
-  <!-- Stats -->
-
-  <div class="stats">
-
-    <div class="stats-box">
+    <div class="status">
 
       <span class="green-dot"></span>
 
       <span>
-        Users Online:
-        <strong
-          class="online-number"
-          id="onlineUsers">
-          125
-        </strong>
+        👥 Users Online:
+        <b id="online">125</b>
       </span>
 
       <span>|</span>
 
       <span>
-        📅 Last Update:
-        <strong>Aug 2026</strong>
+        📅 Last Update: Aug 2026
       </span>
 
     </div>
@@ -784,67 +558,497 @@ body::before{
   </div>
 
 
-  <!-- Main offer section -->
+  <!-- HERO -->
 
-  <section class="offer-area">
+  <div class="hero">
+
+    <div class="floor"></div>
 
 
-    <!-- CSS character -->
+    <!-- 3D STYLE MAN -->
 
     <div class="character">
 
-      <div class="hair"></div>
+      <svg
+        viewBox="0 0 500 760"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="3D style man wearing an open long jacket">
 
-      <div class="head"></div>
+        <defs>
 
-      <div class="glasses">
-        <span></span>
-        <span></span>
-      </div>
+          <!-- Skin -->
+          <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffd4b5"/>
+            <stop offset=".5" stop-color="#d99372"/>
+            <stop offset="1" stop-color="#8c4d43"/>
+          </linearGradient>
 
-      <div class="body-man"></div>
+          <!-- Hair -->
+          <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5d3a27"/>
+            <stop offset=".5" stop-color="#241710"/>
+            <stop offset="1" stop-color="#080808"/>
+          </linearGradient>
 
-      <div class="coat-left"></div>
+          <!-- Shirt -->
+          <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#30303a"/>
+            <stop offset=".5" stop-color="#101016"/>
+            <stop offset="1" stop-color="#020204"/>
+          </linearGradient>
 
-      <div class="coat-right"></div>
+          <!-- Jacket -->
+          <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#343341"/>
+            <stop offset=".35" stop-color="#111118"/>
+            <stop offset=".7" stop-color="#050507"/>
+            <stop offset="1" stop-color="#292735"/>
+          </linearGradient>
+
+          <!-- Jacket inside -->
+          <linearGradient id="inside" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#08080d"/>
+            <stop offset=".5" stop-color="#151421"/>
+            <stop offset="1" stop-color="#020204"/>
+          </linearGradient>
+
+          <!-- Pants -->
+          <linearGradient id="pants" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#292832"/>
+            <stop offset=".5" stop-color="#09090d"/>
+            <stop offset="1" stop-color="#020203"/>
+          </linearGradient>
+
+          <!-- Shoe -->
+          <linearGradient id="shoe" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#44434d"/>
+            <stop offset=".5" stop-color="#111118"/>
+            <stop offset="1" stop-color="#020203"/>
+          </linearGradient>
+
+          <!-- Shadow -->
+          <filter id="shadow">
+            <feDropShadow
+              dx="0"
+              dy="8"
+              stdDeviation="7"
+              flood-opacity=".6"/>
+          </filter>
+
+          <!-- Glow -->
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3"/>
+          </filter>
+
+        </defs>
+
+
+        <!-- SHADOW -->
+
+        <ellipse
+          cx="245"
+          cy="730"
+          rx="170"
+          ry="25"
+          fill="#000"
+          opacity=".6"
+          filter="url(#shadow)"/>
+
+
+        <!-- BACK JACKET -->
+
+        <path
+          class="jacketGlow"
+          d="
+          M145 280
+          Q90 310 68 400
+          L35 680
+          Q80 705 125 690
+          L170 430
+          L190 315 Z"
+          fill="url(#jacket)"
+          stroke="#454253"
+          stroke-width="4"/>
+
+
+        <!-- RIGHT OPEN JACKET -->
+
+        <path
+          class="jacketGlow"
+          d="
+          M275 280
+          Q340 285 370 345
+          L455 680
+          Q400 715 325 690
+          L275 470
+          L245 330 Z"
+          fill="url(#jacket)"
+          stroke="#454253"
+          stroke-width="4"/>
+
+
+        <!-- JACKET INNER DARK SPACE -->
+
+        <path
+          d="
+          M180 295
+          Q245 275 305 300
+          L345 665
+          Q260 690 175 665
+          Z"
+          fill="url(#inside)"/>
+
+
+        <!-- TORSO -->
+
+        <path
+          d="
+          M170 280
+          Q245 250 310 285
+          L330 470
+          Q245 505 160 470
+          Z"
+          fill="url(#shirt)"
+          stroke="#08080b"
+          stroke-width="4"/>
+
+
+        <!-- NECK -->
+
+        <path
+          d="
+          M205 250
+          L210 300
+          Q245 320 275 295
+          L278 250
+          Z"
+          fill="url(#skin)"/>
+
+
+        <!-- HEAD -->
+
+        <path
+          d="
+          M182 145
+          Q190 80 245 75
+          Q315 78 320 150
+          L303 250
+          Q270 282 218 258
+          Q183 235 182 145
+          Z"
+          fill="url(#skin)"
+          stroke="#5c3937"
+          stroke-width="3"/>
+
+
+        <!-- EAR -->
+
+        <ellipse
+          cx="184"
+          cy="180"
+          rx="13"
+          ry="22"
+          fill="#c7836e"/>
+
+        <ellipse
+          cx="317"
+          cy="180"
+          rx="13"
+          ry="22"
+          fill="#c7836e"/>
+
+
+        <!-- HAIR -->
+
+        <path
+          d="
+          M177 155
+          Q164 88 215 53
+          Q245 28 287 53
+          Q331 75 324 144
+          L301 121
+          Q283 93 255 98
+          Q222 99 196 137
+          Z"
+          fill="url(#hair)"/>
+
+
+        <!-- HAIR HIGHLIGHTS -->
+
+        <path
+          d="M190 118 Q215 70 270 67"
+          fill="none"
+          stroke="#a86a43"
+          stroke-width="9"
+          stroke-linecap="round"
+          opacity=".55"/>
+
+
+        <!-- GLASSES -->
+
+        <rect
+          x="188"
+          y="145"
+          width="54"
+          height="28"
+          rx="8"
+          fill="#08090d"
+          stroke="#666"
+          stroke-width="3"/>
+
+        <rect
+          x="254"
+          y="145"
+          width="54"
+          height="28"
+          rx="8"
+          fill="#08090d"
+          stroke="#666"
+          stroke-width="3"/>
+
+        <path
+          d="M242 153 Q248 149 254 153"
+          fill="none"
+          stroke="#777"
+          stroke-width="4"/>
+
+
+        <!-- NOSE -->
+
+        <path
+          d="M247 170 L240 205 L255 207"
+          fill="none"
+          stroke="#995e55"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+
+        <!-- SMILE -->
+
+        <path
+          d="M225 221 Q247 234 270 219"
+          fill="none"
+          stroke="#713d3d"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+
+        <!-- CHAIN -->
+
+        <path
+          d="M210 280 Q245 330 278 280"
+          fill="none"
+          stroke="#d5d5d5"
+          stroke-width="3"/>
+
+        <path
+          d="M220 293 Q245 350 270 293"
+          fill="none"
+          stroke="#777"
+          stroke-width="2"/>
+
+        <!-- PENDANT -->
+
+        <polygon
+          points="245,326 258,338 245,350 232,338"
+          fill="#ddd"
+          stroke="#777"
+          stroke-width="3"/>
+
+
+        <!-- LEFT ARM -->
+
+        <path
+          d="
+          M165 300
+          Q125 320 112 385
+          L105 530
+          Q115 550 140 540
+          L175 405
+          L205 320
+          Z"
+          fill="url(#jacket)"
+          stroke="#454253"
+          stroke-width="4"/>
+
+
+        <!-- LEFT HAND IN POCKET -->
+
+        <path
+          d="
+          M105 510
+          Q85 520 92 550
+          Q100 568 124 555
+          L145 530
+          L132 510
+          Z"
+          fill="url(#skin)"
+          stroke="#75443e"
+          stroke-width="3"/>
+
+
+        <!-- PANTS LEFT -->
+
+        <path
+          d="
+          M174 450
+          Q210 470 244 465
+          L232 655
+          L158 665
+          Z"
+          fill="url(#pants)"
+          stroke="#33323c"
+          stroke-width="4"/>
+
+
+        <!-- PANTS RIGHT -->
+
+        <path
+          d="
+          M244 465
+          Q280 470 315 450
+          L350 665
+          L270 655
+          Z"
+          fill="url(#pants)"
+          stroke="#33323c"
+          stroke-width="4"/>
+
+
+        <!-- BELT -->
+
+        <rect
+          x="170"
+          y="455"
+          width="145"
+          height="20"
+          rx="5"
+          fill="#111"/>
+
+        <rect
+          x="230"
+          y="452"
+          width="35"
+          height="27"
+          rx="5"
+          fill="#b7a35b"
+          stroke="#fff"
+          stroke-width="2"/>
+
+
+        <!-- LEFT SHOE -->
+
+        <path
+          d="
+          M160 640
+          L235 640
+          L245 680
+          Q230 715 150 700
+          Q130 682 160 640
+          Z"
+          fill="url(#shoe)"
+          stroke="#555"
+          stroke-width="4"/>
+
+
+        <!-- RIGHT SHOE -->
+
+        <path
+          d="
+          M270 640
+          L340 650
+          L375 690
+          Q360 720 270 704
+          Q255 680 270 640
+          Z"
+          fill="url(#shoe)"
+          stroke="#555"
+          stroke-width="4"/>
+
+
+        <!-- SHOELINES -->
+
+        <path
+          d="M170 665 L225 665 M168 680 L230 680"
+          stroke="#777"
+          stroke-width="4"/>
+
+        <path
+          d="M282 665 L340 678 M280 682 L350 695"
+          stroke="#777"
+          stroke-width="4"/>
+
+
+        <!-- OPEN JACKET EDGE -->
+
+        <path
+          d="
+          M275 280
+          Q330 330 350 400
+          L440 675"
+          fill="none"
+          stroke="#656171"
+          stroke-width="7"/>
+
+
+        <!-- HAND HOLDING JACKET -->
+
+        <path
+          d="
+          M437 335
+          Q460 320 475 342
+          Q480 363 461 375
+          L435 366
+          Z"
+          fill="url(#skin)"
+          stroke="#75443e"
+          stroke-width="3"/>
+
+        <!-- FINGERS -->
+
+        <path
+          d="M445 341 L466 345
+             M443 350 L468 354
+             M440 359 L462 363"
+          stroke="#9d5c50"
+          stroke-width="3"
+          stroke-linecap="round"/>
+
+
+        <!-- JACKET BUTTONS -->
+
+        <circle cx="155" cy="365" r="7" fill="#777"/>
+        <circle cx="145" cy="410" r="7" fill="#777"/>
+        <circle cx="340" cy="390" r="7" fill="#777"/>
+
+      </svg>
 
     </div>
 
 
-    <!-- Offers -->
+    <!-- OFFERS INSIDE OPEN JACKET -->
 
-    <div class="offers">
+    <div class="coatOffers">
 
 
-      <!-- $5 -->
+      <div class="offer green">
 
-      <div class="offer">
-
-        <div class="cash">
+        <div class="cashIcon">
           💵
         </div>
 
-        <div class="offer-content">
+        <div class="offerText">
 
-          <div class="offer-title">
-
-            <span class="amount">
-              $5
-            </span>
-
-            <span class="bonus">
-              CASH BONUS
-            </span>
-
+          <div>
+            <span class="amount">$5</span>
+            <span class="bonus">CASH BONUS</span>
           </div>
 
-          <p>
-            Instant Wallet Credit
-          </p>
+          <p>Instant Wallet Credit</p>
 
           <button
-            class="button"
-            onclick="getBonus(5)">
+            class="get"
+            onclick="selectBonus(5)">
             Get Now
           </button>
 
@@ -853,35 +1057,24 @@ body::before{
       </div>
 
 
-      <!-- $10 -->
+      <div class="offer blue">
 
-      <div class="offer">
-
-        <div class="cash">
+        <div class="cashIcon">
           💵
         </div>
 
-        <div class="offer-content">
+        <div class="offerText">
 
-          <div class="offer-title">
-
-            <span class="amount">
-              $10
-            </span>
-
-            <span class="bonus">
-              CASH BONUS
-            </span>
-
+          <div>
+            <span class="amount">$10</span>
+            <span class="bonus">CASH BONUS</span>
           </div>
 
-          <p>
-            Instant Wallet Credit
-          </p>
+          <p>Instant Wallet Credit</p>
 
           <button
-            class="button"
-            onclick="getBonus(10)">
+            class="get"
+            onclick="selectBonus(10)">
             Get Now
           </button>
 
@@ -890,35 +1083,24 @@ body::before{
       </div>
 
 
-      <!-- $20 -->
+      <div class="offer orange">
 
-      <div class="offer">
-
-        <div class="cash">
+        <div class="cashIcon">
           💵
         </div>
 
-        <div class="offer-content">
+        <div class="offerText">
 
-          <div class="offer-title">
-
-            <span class="amount">
-              $20
-            </span>
-
-            <span class="bonus">
-              CASH BONUS
-            </span>
-
+          <div>
+            <span class="amount">$20</span>
+            <span class="bonus">CASH BONUS</span>
           </div>
 
-          <p>
-            Instant Wallet Credit
-          </p>
+          <p>Instant Wallet Credit</p>
 
           <button
-            class="button"
-            onclick="getBonus(20)">
+            class="get"
+            onclick="selectBonus(20)">
             Get Now
           </button>
 
@@ -929,79 +1111,78 @@ body::before{
 
     </div>
 
-
-    <div id="message"></div>
-
-  </section>
+  </div>
 
 
-  <!-- Footer -->
+  <!-- BOTTOM -->
 
-  <footer class="footer">
+  <div class="bottom">
 
-    <div>
-      🛡️ <strong>Demo Page</strong>
-      &nbsp; | &nbsp;
-      No Payment Required
-      &nbsp; | &nbsp;
-      Test Offer
+    <div class="features">
+      <span>🛡️ 100% Secure</span>
+      <span>🔒 No Hidden Fees</span>
+      <span>◷ Limited Time Offer</span>
     </div>
 
     <div class="thanks">
-      ❤️ Thank you for being with us! ❤️
+      <span class="heart">♥</span>
+      Thank you for being with us!
+      <span class="heart">♥</span>
     </div>
 
-  </footer>
+  </div>
 
 </div>
 
 
-<!-- ================= JAVASCRIPT ================= -->
+<div id="message"></div>
+
 
 <script>
 
-/* Demo online counter */
+/* BONUS BUTTON */
 
-let users = 125;
-
-setInterval(function(){
-
-  const change =
-    Math.random() > 0.5 ? 1 : -1;
-
-  users += change;
-
-  if(users < 100){
-    users = 100;
-  }
-
-  document.getElementById(
-    "onlineUsers"
-  ).textContent = users;
-
-},3000);
-
-
-/* Demo offer button */
-
-function getBonus(amount){
+function selectBonus(amount){
 
   const message =
     document.getElementById("message");
 
-  message.style.display = "block";
-
-  message.innerHTML =
+  message.textContent =
     "You selected the $" +
     amount +
-    " demo bonus.";
+    " bonus.";
 
-  message.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
+  message.style.display = "block";
+
+  setTimeout(function(){
+
+    message.style.display = "none";
+
+  },2500);
 
 }
+
+
+/* ONLINE USERS DEMO */
+
+let online = 125;
+
+setInterval(function(){
+
+  const change =
+    Math.random() > .5 ? 1 : -1;
+
+  online += change;
+
+  if(online < 100){
+    online = 100;
+  }
+
+  document.getElementById(
+    "online"
+  ).textContent = online;
+
+},3000);
 
 </script>
 
