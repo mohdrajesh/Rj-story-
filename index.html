@@ -8,511 +8,567 @@
 
 <style>
 *{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  color:white;
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 15% 20%,#2636a8 0,transparent 25%),
-    radial-gradient(circle at 90% 70%,#7b147f 0,transparent 30%),
-    linear-gradient(135deg,#03051c,#08002d 45%,#02091e);
+    min-height:100vh;
+    background:#030615;
+    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* BACKGROUND LIGHTS */
-
-body:before,
-body:after{
-  content:"";
-  position:fixed;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  filter:blur(100px);
-  opacity:.35;
-  z-index:-2;
-  animation:orb 8s infinite alternate ease-in-out;
+/* BACKGROUND */
+.page{
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(0,80,255,.25), transparent 30%),
+        radial-gradient(circle at 10% 70%, rgba(180,0,255,.25), transparent 35%),
+        linear-gradient(135deg,#02030d,#05051d 50%,#02030b);
 }
 
-body:before{
-  background:#006eff;
-  top:-100px;
-  left:-80px;
+.page::before{
+    content:"";
+    position:absolute;
+    inset:-50%;
+    background:
+        linear-gradient(115deg,
+        transparent 45%,
+        rgba(0,130,255,.15) 46%,
+        transparent 47%),
+        linear-gradient(70deg,
+        transparent 48%,
+        rgba(190,0,255,.13) 49%,
+        transparent 50%);
+    animation:bgMove 12s linear infinite;
 }
 
-body:after{
-  background:#ff00d4;
-  right:-100px;
-  bottom:-100px;
-  animation-delay:2s;
-}
-
-@keyframes orb{
-  from{
-    transform:translate(0,0);
-  }
-  to{
-    transform:translate(60px,-40px);
-  }
+@keyframes bgMove{
+    from{transform:translate(0,0)}
+    to{transform:translate(150px,80px)}
 }
 
 /* MAIN */
+.container{
+    position:relative;
+    z-index:2;
+    width:min(1450px,94%);
+    min-height:100vh;
+    margin:auto;
 
-.page{
-  width:100%;
-  max-width:1250px;
-  margin:auto;
-  padding:25px 20px 35px;
-}
+    display:grid;
+    grid-template-columns:44% 56%;
+    align-items:center;
+    gap:20px;
 
-/* TITLE */
-
-.title{
-  text-align:center;
-  position:relative;
-  z-index:5;
-}
-
-.money{
-  font-size:58px;
-  filter:drop-shadow(0 0 15px #48ff72);
-  vertical-align:middle;
-}
-
-.title h1{
-  display:inline-block;
-  margin:0;
-  font-size:clamp(38px,7vw,82px);
-  line-height:.9;
-  font-weight:900;
-  letter-spacing:2px;
-  text-shadow:
-    0 4px 0 #555,
-    0 0 20px rgba(255,255,255,.5);
-}
-
-.title h1 span{
-  display:block;
-  color:#00eaff;
-  font-size:.9em;
-  text-shadow:
-    0 0 8px #00eaff,
-    0 0 25px #008cff;
-  transform:skew(-8deg);
-}
-
-.demo{
-  margin:20px 0 15px;
-  color:#ffc928;
-  font-size:25px;
-  font-weight:900;
-  text-shadow:0 0 12px #ff9d00;
-}
-
-.status{
-  display:inline-flex;
-  align-items:center;
-  gap:18px;
-  padding:13px 22px;
-  border:1px solid rgba(255,255,255,.35);
-  border-radius:40px;
-  background:rgba(0,0,0,.35);
-  box-shadow:
-    inset 0 0 20px rgba(255,255,255,.05),
-    0 0 25px rgba(0,150,255,.12);
-  font-size:16px;
-}
-
-.green-dot{
-  width:11px;
-  height:11px;
-  display:inline-block;
-  border-radius:50%;
-  background:#00ff72;
-  box-shadow:0 0 15px #00ff72;
-}
-
-/* HERO */
-
-.hero{
-  position:relative;
-  min-height:780px;
-  margin-top:10px;
-}
-
-/* FLOOR */
-
-.floor{
-  position:absolute;
-  left:4%;
-  right:4%;
-  bottom:5px;
-  height:80px;
-  border-radius:50%;
-  background:
-    radial-gradient(ellipse,
-      rgba(0,211,255,.35),
-      rgba(107,0,255,.18) 35%,
-      transparent 70%);
-  filter:blur(8px);
+    padding:40px 20px 25px;
 }
 
 /* CHARACTER */
+.character-area{
+    height:900px;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.character-area::after{
+    content:"";
+    position:absolute;
+    bottom:15px;
+    left:10%;
+    right:10%;
+    height:70px;
+
+    background:radial-gradient(
+        ellipse,
+        rgba(0,120,255,.5),
+        rgba(180,0,255,.25),
+        transparent 70%
+    );
+
+    filter:blur(18px);
+}
 
 .character{
-  position:absolute;
-  left:1%;
-  bottom:20px;
-  width:47%;
-  height:720px;
-  min-width:350px;
-  z-index:4;
-  animation:characterFloat 4s ease-in-out infinite;
+    position:relative;
+    z-index:3;
+    width:100%;
+    max-width:620px;
+    height:100%;
+    object-fit:contain;
+    object-position:left bottom;
+
+    filter:
+        drop-shadow(0 0 20px rgba(0,90,255,.18))
+        drop-shadow(0 0 40px rgba(180,0,255,.12));
+
+    animation:characterFloat 4s ease-in-out infinite;
 }
 
 @keyframes characterFloat{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(-7px);
-  }
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-7px);
+    }
 }
 
-.character svg{
-  width:100%;
-  height:100%;
-  overflow:visible;
+/* RIGHT CONTENT */
+.content{
+    position:relative;
+    z-index:5;
+    padding:10px;
 }
 
-/* JACKET GLOW */
-
-.jacketGlow{
-  filter:
-    drop-shadow(0 0 8px rgba(0,180,255,.4))
-    drop-shadow(0 0 25px rgba(120,0,255,.2));
+/* HEADER */
+.header{
+    text-align:center;
+    margin-bottom:22px;
 }
 
-/* OFFERS AREA */
-
-.coatOffers{
-  position:absolute;
-  z-index:8;
-  width:46%;
-  right:4%;
-  top:145px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+.money{
+    font-size:55px;
+    display:inline-block;
+    transform:rotate(-7deg);
+    filter:drop-shadow(0 5px 8px rgba(0,0,0,.5));
+    margin-right:10px;
 }
 
-/* OFFER */
+.cash{
+    font-size:clamp(42px,5vw,78px);
+    font-weight:1000;
+    letter-spacing:-3px;
 
-.offer{
-  min-height:135px;
-  padding:17px 20px;
-  border-radius:18px;
+    background:linear-gradient(
+        180deg,
+        #ffffff,
+        #d8e4ef,
+        #8da0b3
+    );
 
-  display:grid;
-  grid-template-columns:75px 1fr;
-  align-items:center;
-  gap:15px;
+    -webkit-background-clip:text;
+    color:transparent;
 
-  background:
-    linear-gradient(135deg,
-      rgba(0,0,0,.82),
-      rgba(4,25,36,.72));
-
-  border:1px solid rgba(255,255,255,.25);
-
-  box-shadow:
-    inset 0 0 25px rgba(255,255,255,.04),
-    0 8px 35px rgba(0,0,0,.45);
-
-  backdrop-filter:blur(5px);
-
-  animation:offerFloat 3s ease-in-out infinite;
+    text-shadow:0 5px 15px rgba(255,255,255,.15);
 }
 
-.offer:nth-child(2){
-  animation-delay:.35s;
+.giveaway{
+    margin-top:3px;
+
+    font-size:clamp(48px,6vw,88px);
+    font-weight:1000;
+    font-style:italic;
+    letter-spacing:-4px;
+
+    color:#18eaff;
+
+    text-shadow:
+        0 0 5px #00eaff,
+        0 0 15px #00bfff,
+        0 0 30px rgba(0,220,255,.8);
+
+    transform:skew(-5deg);
 }
 
-.offer:nth-child(3){
-  animation-delay:.7s;
+.demo{
+    margin-top:10px;
+    color:#ffd42e;
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:2px;
+
+    text-shadow:0 0 12px rgba(255,210,40,.6);
 }
 
-@keyframes offerFloat{
-  0%,100%{
-    transform:translateX(0);
-  }
-  50%{
-    transform:translateX(4px);
-  }
+/* STATUS */
+.status{
+    max-width:720px;
+    margin:22px auto 28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+
+    padding:16px 25px;
+
+    border:1px solid rgba(150,170,210,.45);
+    border-radius:30px;
+
+    background:rgba(4,8,25,.72);
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+        inset 0 0 20px rgba(0,130,255,.08),
+        0 0 25px rgba(0,50,150,.12);
 }
 
-.offer.green{
-  border-color:#53ff72;
-  box-shadow:
-    0 0 20px rgba(30,255,80,.15),
-    inset 0 0 25px rgba(30,255,80,.06);
+.status span{
+    color:#ddd;
 }
 
-.offer.blue{
-  border-color:#00c8ff;
-  box-shadow:
-    0 0 20px rgba(0,200,255,.15),
-    inset 0 0 25px rgba(0,200,255,.06);
+.online{
+    color:#00ff71 !important;
+    font-weight:bold;
 }
 
-.offer.orange{
-  border-color:#ffae2f;
-  box-shadow:
-    0 0 20px rgba(255,160,20,.15),
-    inset 0 0 25px rgba(255,160,20,.06);
+.dot{
+    display:inline-block;
+    width:11px;
+    height:11px;
+    background:#00ff65;
+    border-radius:50%;
+    margin-right:7px;
+    box-shadow:0 0 12px #00ff65;
 }
 
-.cashIcon{
-  font-size:45px;
-  filter:drop-shadow(0 0 8px rgba(80,255,80,.5));
+.line{
+    width:1px;
+    height:25px;
+    background:#657080;
 }
 
-.offerText{
-  text-align:left;
+/* BONUS CARDS */
+.cards{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
 }
 
+.card{
+    position:relative;
+    min-height:175px;
+
+    display:grid;
+    grid-template-columns:125px 1fr auto;
+    align-items:center;
+    gap:18px;
+
+    padding:22px 28px;
+
+    border-radius:22px;
+    overflow:hidden;
+
+    background:rgba(3,15,15,.72);
+    backdrop-filter:blur(12px);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.card:hover{
+    transform:translateY(-5px) scale(1.01);
+}
+
+/* CARD GLOW */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:22px;
+    padding:2px;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.8),
+        transparent
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+    opacity:.45;
+}
+
+/* GREEN */
+.card.green{
+    border:1px solid #43ff63;
+    box-shadow:
+        0 0 15px rgba(40,255,80,.25),
+        inset 0 0 30px rgba(20,255,80,.08);
+}
+
+/* BLUE */
+.card.blue{
+    border:1px solid #18cfff;
+    background:rgba(0,20,35,.75);
+
+    box-shadow:
+        0 0 15px rgba(0,180,255,.3),
+        inset 0 0 30px rgba(0,160,255,.08);
+}
+
+/* ORANGE */
+.card.orange{
+    border:1px solid #ffae2c;
+    background:rgba(30,16,3,.75);
+
+    box-shadow:
+        0 0 15px rgba(255,150,20,.3),
+        inset 0 0 30px rgba(255,130,0,.08);
+}
+
+/* MONEY ICON */
+.money-stack{
+    font-size:70px;
+    text-align:center;
+
+    filter:
+        drop-shadow(0 8px 6px rgba(0,0,0,.5))
+        drop-shadow(0 0 8px rgba(40,255,100,.15));
+}
+
+/* TEXT */
 .amount{
-  font-size:40px;
-  line-height:1;
-  font-weight:900;
+    font-size:58px;
+    font-weight:1000;
+    line-height:1;
 }
 
 .green .amount{
-  color:#58ff6c;
-  text-shadow:0 0 15px #1dff45;
+    color:#67ff75;
+    text-shadow:0 0 15px rgba(50,255,80,.5);
 }
 
 .blue .amount{
-  color:#22d8ff;
-  text-shadow:0 0 15px #00aaff;
+    color:#18d9ff;
+    text-shadow:0 0 15px rgba(0,200,255,.5);
 }
 
 .orange .amount{
-  color:#ffb52e;
-  text-shadow:0 0 15px #ff8c00;
+    color:#ffad21;
+    text-shadow:0 0 15px rgba(255,150,0,.5);
 }
 
-.bonus{
-  font-size:17px;
-  font-weight:800;
-  margin-left:8px;
+.bonus-title{
+    font-size:26px;
+    font-weight:900;
+    margin-top:5px;
 }
 
-.offer p{
-  margin:8px 0 12px;
-  font-size:14px;
-  color:#ddd;
+.subtitle{
+    color:#ddd;
+    font-size:17px;
+    margin-top:8px;
 }
 
-.get{
-  border:0;
-  border-radius:25px;
-  padding:10px 28px;
-  color:white;
-  font-weight:800;
-  font-size:15px;
-  cursor:pointer;
-  transition:.25s;
+/* BUTTON */
+.get-btn{
+    border:0;
+    border-radius:13px;
+
+    padding:14px 32px;
+
+    color:white;
+    font-size:18px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.green .get{
-  background:#18d957;
-  box-shadow:0 0 15px rgba(24,217,87,.5);
+.get-btn:hover{
+    transform:scale(1.06);
 }
 
-.blue .get{
-  background:#079ee8;
-  box-shadow:0 0 15px rgba(0,170,255,.5);
+.green .get-btn{
+    background:linear-gradient(135deg,#18df50,#5cff76);
+    box-shadow:0 0 20px rgba(30,255,80,.35);
 }
 
-.orange .get{
-  background:#ff9200;
-  box-shadow:0 0 15px rgba(255,150,0,.5);
+.blue .get-btn{
+    background:linear-gradient(135deg,#04a8ed,#21d5ff);
+    box-shadow:0 0 20px rgba(0,180,255,.35);
 }
 
-.get:hover{
-  transform:scale(1.07);
-  filter:brightness(1.2);
+.orange .get-btn{
+    background:linear-gradient(135deg,#ff8b00,#ffb52d);
+    box-shadow:0 0 20px rgba(255,140,0,.35);
 }
 
-/* BOTTOM */
-
-.bottom{
-  position:relative;
-  z-index:10;
-  text-align:center;
-  margin-top:-15px;
-  font-size:15px;
-  color:#ddd;
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:30px;
+    color:#d3d3d3;
+    font-size:15px;
 }
 
-.features{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:25px;
-  margin-bottom:14px;
+.secure{
+    margin-bottom:12px;
 }
 
 .thanks{
-  font-size:18px;
-  font-weight:700;
+    font-size:18px;
 }
 
 .heart{
-  color:#ff334f;
-  text-shadow:0 0 10px #ff0033;
+    color:#ff3030;
+    font-size:21px;
+    margin:0 5px;
 }
 
-/* MESSAGE */
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    z-index:100;
 
-#message{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%);
-  z-index:100;
-  display:none;
+    display:none;
+    align-items:center;
+    justify-content:center;
 
-  background:rgba(0,0,0,.9);
-  border:1px solid #00d9ff;
-  border-radius:15px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(8px);
+}
 
-  padding:15px 25px;
+.popup-box{
+    width:min(430px,90%);
+    text-align:center;
 
-  box-shadow:0 0 25px rgba(0,200,255,.4);
+    padding:35px;
 
-  font-weight:700;
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,20,40,.98),
+            rgba(3,5,18,.98)
+        );
+
+    border:1px solid #19d8ff;
+
+    box-shadow:
+        0 0 40px rgba(0,180,255,.3);
+}
+
+.popup-box h2{
+    color:#1eeaff;
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+.popup-box p{
+    color:#ddd;
+    line-height:1.6;
+}
+
+.close{
+    margin-top:22px;
+    padding:12px 30px;
+
+    border:0;
+    border-radius:10px;
+
+    background:#13bfff;
+    color:white;
+
+    font-weight:bold;
+    cursor:pointer;
 }
 
 /* MOBILE */
+@media(max-width:900px){
 
-@media(max-width:850px){
+    .container{
+        grid-template-columns:1fr;
+        padding-top:20px;
+    }
 
-  .page{
-    padding:20px 10px 30px;
-  }
+    .character-area{
+        height:480px;
+        order:1;
+    }
 
-  .money{
-    font-size:40px;
-  }
+    .character{
+        max-width:500px;
+    }
 
-  .title h1{
-    font-size:43px;
-  }
+    .content{
+        order:2;
+    }
 
-  .status{
-    font-size:13px;
-    gap:9px;
-    padding:10px 13px;
-  }
+    .cash{
+        font-size:45px;
+    }
 
-  .hero{
-    min-height:1100px;
-  }
+    .giveaway{
+        font-size:55px;
+    }
 
-  .character{
-    width:100%;
-    height:610px;
-    left:-2%;
-    bottom:420px;
-    min-width:0;
-  }
+    .card{
+        grid-template-columns:85px 1fr;
+        padding:18px;
+    }
 
-  .coatOffers{
-    width:88%;
-    right:6%;
-    top:500px;
-  }
+    .money-stack{
+        font-size:50px;
+    }
 
-  .offer{
-    min-height:125px;
-  }
+    .amount{
+        font-size:45px;
+    }
 
-  .amount{
-    font-size:32px;
-  }
+    .get-btn{
+        grid-column:1 / -1;
+        width:100%;
+    }
 
-  .bonus{
-    display:block;
-    margin:5px 0 0;
-  }
-
-  .cashIcon{
-    font-size:38px;
-  }
-
+    .status{
+        font-size:13px;
+        gap:10px;
+        padding:13px;
+    }
 }
 
-@media(max-width:450px){
+@media(max-width:480px){
 
-  .title h1{
-    font-size:34px;
-  }
+    .character-area{
+        height:400px;
+    }
 
-  .demo{
-    font-size:20px;
-  }
+    .cash{
+        font-size:36px;
+        letter-spacing:-2px;
+    }
 
-  .hero{
-    min-height:1010px;
-  }
+    .giveaway{
+        font-size:43px;
+    }
 
-  .character{
-    height:500px;
-    bottom:430px;
-  }
+    .demo{
+        font-size:16px;
+    }
 
-  .coatOffers{
-    top:405px;
-    width:94%;
-    right:3%;
-  }
+    .card{
+        min-height:160px;
+    }
 
-  .offer{
-    grid-template-columns:55px 1fr;
-    min-height:120px;
-    padding:14px;
-  }
+    .bonus-title{
+        font-size:21px;
+    }
 
-  .cashIcon{
-    font-size:32px;
-  }
-
-  .amount{
-    font-size:28px;
-  }
-
-  .bonus{
-    font-size:13px;
-  }
-
-  .offer p{
-    font-size:12px;
-  }
-
-  .get{
-    padding:8px 20px;
-    font-size:13px;
-  }
+    .subtitle{
+        font-size:14px;
+    }
 }
 </style>
 </head>
@@ -521,668 +577,265 @@ body:after{
 
 <div class="page">
 
-  <!-- TITLE -->
+<div class="container">
 
-  <div class="title">
+    <!-- CHARACTER -->
+    <div class="character-area">
 
-    <div>
-      <span class="money">💵</span>
+        <!--
+        IMPORTANT:
+        Apni reference image ko "reference.png"
+        naam se isi folder me rakhein.
+        -->
 
-      <h1>
-        CASH BONUS
-        <span>GIVEAWAY</span>
-      </h1>
-    </div>
-
-    <div class="demo">
-      ★ DEMO GIVEAWAY ★
-    </div>
-
-    <div class="status">
-
-      <span class="green-dot"></span>
-
-      <span>
-        👥 Users Online:
-        <b id="online">125</b>
-      </span>
-
-      <span>|</span>
-
-      <span>
-        📅 Last Update: Aug 2026
-      </span>
+        <img
+            src="reference.png"
+            class="character"
+            alt="Cash Bonus Character"
+        >
 
     </div>
 
-  </div>
 
+    <!-- RIGHT CONTENT -->
+    <div class="content">
 
-  <!-- HERO -->
+        <div class="header">
 
-  <div class="hero">
+            <div>
+                <span class="money">💵</span>
+                <span class="cash">CASH BONUS</span>
+            </div>
 
-    <div class="floor"></div>
+            <div class="giveaway">
+                GIVEAWAY
+            </div>
 
-
-    <!-- 3D STYLE MAN -->
-
-    <div class="character">
-
-      <svg
-        viewBox="0 0 500 760"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-label="3D style man wearing an open long jacket">
-
-        <defs>
-
-          <!-- Skin -->
-          <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#ffd4b5"/>
-            <stop offset=".5" stop-color="#d99372"/>
-            <stop offset="1" stop-color="#8c4d43"/>
-          </linearGradient>
-
-          <!-- Hair -->
-          <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5d3a27"/>
-            <stop offset=".5" stop-color="#241710"/>
-            <stop offset="1" stop-color="#080808"/>
-          </linearGradient>
-
-          <!-- Shirt -->
-          <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#30303a"/>
-            <stop offset=".5" stop-color="#101016"/>
-            <stop offset="1" stop-color="#020204"/>
-          </linearGradient>
-
-          <!-- Jacket -->
-          <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#343341"/>
-            <stop offset=".35" stop-color="#111118"/>
-            <stop offset=".7" stop-color="#050507"/>
-            <stop offset="1" stop-color="#292735"/>
-          </linearGradient>
-
-          <!-- Jacket inside -->
-          <linearGradient id="inside" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#08080d"/>
-            <stop offset=".5" stop-color="#151421"/>
-            <stop offset="1" stop-color="#020204"/>
-          </linearGradient>
-
-          <!-- Pants -->
-          <linearGradient id="pants" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#292832"/>
-            <stop offset=".5" stop-color="#09090d"/>
-            <stop offset="1" stop-color="#020203"/>
-          </linearGradient>
-
-          <!-- Shoe -->
-          <linearGradient id="shoe" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#44434d"/>
-            <stop offset=".5" stop-color="#111118"/>
-            <stop offset="1" stop-color="#020203"/>
-          </linearGradient>
-
-          <!-- Shadow -->
-          <filter id="shadow">
-            <feDropShadow
-              dx="0"
-              dy="8"
-              stdDeviation="7"
-              flood-opacity=".6"/>
-          </filter>
-
-          <!-- Glow -->
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3"/>
-          </filter>
-
-        </defs>
-
-
-        <!-- SHADOW -->
-
-        <ellipse
-          cx="245"
-          cy="730"
-          rx="170"
-          ry="25"
-          fill="#000"
-          opacity=".6"
-          filter="url(#shadow)"/>
-
-
-        <!-- BACK JACKET -->
-
-        <path
-          class="jacketGlow"
-          d="
-          M145 280
-          Q90 310 68 400
-          L35 680
-          Q80 705 125 690
-          L170 430
-          L190 315 Z"
-          fill="url(#jacket)"
-          stroke="#454253"
-          stroke-width="4"/>
-
-
-        <!-- RIGHT OPEN JACKET -->
-
-        <path
-          class="jacketGlow"
-          d="
-          M275 280
-          Q340 285 370 345
-          L455 680
-          Q400 715 325 690
-          L275 470
-          L245 330 Z"
-          fill="url(#jacket)"
-          stroke="#454253"
-          stroke-width="4"/>
-
-
-        <!-- JACKET INNER DARK SPACE -->
-
-        <path
-          d="
-          M180 295
-          Q245 275 305 300
-          L345 665
-          Q260 690 175 665
-          Z"
-          fill="url(#inside)"/>
-
-
-        <!-- TORSO -->
-
-        <path
-          d="
-          M170 280
-          Q245 250 310 285
-          L330 470
-          Q245 505 160 470
-          Z"
-          fill="url(#shirt)"
-          stroke="#08080b"
-          stroke-width="4"/>
-
-
-        <!-- NECK -->
-
-        <path
-          d="
-          M205 250
-          L210 300
-          Q245 320 275 295
-          L278 250
-          Z"
-          fill="url(#skin)"/>
-
-
-        <!-- HEAD -->
-
-        <path
-          d="
-          M182 145
-          Q190 80 245 75
-          Q315 78 320 150
-          L303 250
-          Q270 282 218 258
-          Q183 235 182 145
-          Z"
-          fill="url(#skin)"
-          stroke="#5c3937"
-          stroke-width="3"/>
-
-
-        <!-- EAR -->
-
-        <ellipse
-          cx="184"
-          cy="180"
-          rx="13"
-          ry="22"
-          fill="#c7836e"/>
-
-        <ellipse
-          cx="317"
-          cy="180"
-          rx="13"
-          ry="22"
-          fill="#c7836e"/>
-
-
-        <!-- HAIR -->
-
-        <path
-          d="
-          M177 155
-          Q164 88 215 53
-          Q245 28 287 53
-          Q331 75 324 144
-          L301 121
-          Q283 93 255 98
-          Q222 99 196 137
-          Z"
-          fill="url(#hair)"/>
-
-
-        <!-- HAIR HIGHLIGHTS -->
-
-        <path
-          d="M190 118 Q215 70 270 67"
-          fill="none"
-          stroke="#a86a43"
-          stroke-width="9"
-          stroke-linecap="round"
-          opacity=".55"/>
-
-
-        <!-- GLASSES -->
-
-        <rect
-          x="188"
-          y="145"
-          width="54"
-          height="28"
-          rx="8"
-          fill="#08090d"
-          stroke="#666"
-          stroke-width="3"/>
-
-        <rect
-          x="254"
-          y="145"
-          width="54"
-          height="28"
-          rx="8"
-          fill="#08090d"
-          stroke="#666"
-          stroke-width="3"/>
-
-        <path
-          d="M242 153 Q248 149 254 153"
-          fill="none"
-          stroke="#777"
-          stroke-width="4"/>
-
-
-        <!-- NOSE -->
-
-        <path
-          d="M247 170 L240 205 L255 207"
-          fill="none"
-          stroke="#995e55"
-          stroke-width="4"
-          stroke-linecap="round"/>
-
-
-        <!-- SMILE -->
-
-        <path
-          d="M225 221 Q247 234 270 219"
-          fill="none"
-          stroke="#713d3d"
-          stroke-width="5"
-          stroke-linecap="round"/>
-
-
-        <!-- CHAIN -->
-
-        <path
-          d="M210 280 Q245 330 278 280"
-          fill="none"
-          stroke="#d5d5d5"
-          stroke-width="3"/>
-
-        <path
-          d="M220 293 Q245 350 270 293"
-          fill="none"
-          stroke="#777"
-          stroke-width="2"/>
-
-        <!-- PENDANT -->
-
-        <polygon
-          points="245,326 258,338 245,350 232,338"
-          fill="#ddd"
-          stroke="#777"
-          stroke-width="3"/>
-
-
-        <!-- LEFT ARM -->
-
-        <path
-          d="
-          M165 300
-          Q125 320 112 385
-          L105 530
-          Q115 550 140 540
-          L175 405
-          L205 320
-          Z"
-          fill="url(#jacket)"
-          stroke="#454253"
-          stroke-width="4"/>
-
-
-        <!-- LEFT HAND IN POCKET -->
-
-        <path
-          d="
-          M105 510
-          Q85 520 92 550
-          Q100 568 124 555
-          L145 530
-          L132 510
-          Z"
-          fill="url(#skin)"
-          stroke="#75443e"
-          stroke-width="3"/>
-
-
-        <!-- PANTS LEFT -->
-
-        <path
-          d="
-          M174 450
-          Q210 470 244 465
-          L232 655
-          L158 665
-          Z"
-          fill="url(#pants)"
-          stroke="#33323c"
-          stroke-width="4"/>
-
-
-        <!-- PANTS RIGHT -->
-
-        <path
-          d="
-          M244 465
-          Q280 470 315 450
-          L350 665
-          L270 655
-          Z"
-          fill="url(#pants)"
-          stroke="#33323c"
-          stroke-width="4"/>
-
-
-        <!-- BELT -->
-
-        <rect
-          x="170"
-          y="455"
-          width="145"
-          height="20"
-          rx="5"
-          fill="#111"/>
-
-        <rect
-          x="230"
-          y="452"
-          width="35"
-          height="27"
-          rx="5"
-          fill="#b7a35b"
-          stroke="#fff"
-          stroke-width="2"/>
-
-
-        <!-- LEFT SHOE -->
-
-        <path
-          d="
-          M160 640
-          L235 640
-          L245 680
-          Q230 715 150 700
-          Q130 682 160 640
-          Z"
-          fill="url(#shoe)"
-          stroke="#555"
-          stroke-width="4"/>
-
-
-        <!-- RIGHT SHOE -->
-
-        <path
-          d="
-          M270 640
-          L340 650
-          L375 690
-          Q360 720 270 704
-          Q255 680 270 640
-          Z"
-          fill="url(#shoe)"
-          stroke="#555"
-          stroke-width="4"/>
-
-
-        <!-- SHOELINES -->
-
-        <path
-          d="M170 665 L225 665 M168 680 L230 680"
-          stroke="#777"
-          stroke-width="4"/>
-
-        <path
-          d="M282 665 L340 678 M280 682 L350 695"
-          stroke="#777"
-          stroke-width="4"/>
-
-
-        <!-- OPEN JACKET EDGE -->
-
-        <path
-          d="
-          M275 280
-          Q330 330 350 400
-          L440 675"
-          fill="none"
-          stroke="#656171"
-          stroke-width="7"/>
-
-
-        <!-- HAND HOLDING JACKET -->
-
-        <path
-          d="
-          M437 335
-          Q460 320 475 342
-          Q480 363 461 375
-          L435 366
-          Z"
-          fill="url(#skin)"
-          stroke="#75443e"
-          stroke-width="3"/>
-
-        <!-- FINGERS -->
-
-        <path
-          d="M445 341 L466 345
-             M443 350 L468 354
-             M440 359 L462 363"
-          stroke="#9d5c50"
-          stroke-width="3"
-          stroke-linecap="round"/>
-
-
-        <!-- JACKET BUTTONS -->
-
-        <circle cx="155" cy="365" r="7" fill="#777"/>
-        <circle cx="145" cy="410" r="7" fill="#777"/>
-        <circle cx="340" cy="390" r="7" fill="#777"/>
-
-      </svg>
-
-    </div>
-
-
-    <!-- OFFERS INSIDE OPEN JACKET -->
-
-    <div class="coatOffers">
-
-
-      <div class="offer green">
-
-        <div class="cashIcon">
-          💵
-        </div>
-
-        <div class="offerText">
-
-          <div>
-            <span class="amount">$5</span>
-            <span class="bonus">CASH BONUS</span>
-          </div>
-
-          <p>Instant Wallet Credit</p>
-
-          <button
-            class="get"
-            onclick="selectBonus(5)">
-            Get Now
-          </button>
+            <div class="demo">
+                ★ DEMO GIVEAWAY ★
+            </div>
 
         </div>
 
-      </div>
 
+        <!-- STATUS -->
+        <div class="status">
 
-      <div class="offer blue">
+            <span>
+                <span class="dot"></span>
+                Users Online:
+                <span class="online" id="users">
+                    125
+                </span>
+            </span>
 
-        <div class="cashIcon">
-          💵
-        </div>
+            <span class="line"></span>
 
-        <div class="offerText">
-
-          <div>
-            <span class="amount">$10</span>
-            <span class="bonus">CASH BONUS</span>
-          </div>
-
-          <p>Instant Wallet Credit</p>
-
-          <button
-            class="get"
-            onclick="selectBonus(10)">
-            Get Now
-          </button>
+            <span>
+                📅 Last Update:
+                <b>Aug 2026</b>
+            </span>
 
         </div>
 
-      </div>
+
+        <!-- BONUS CARDS -->
+        <div class="cards">
+
+            <!-- $5 -->
+            <div class="card green">
+
+                <div class="money-stack">
+                    💵
+                </div>
+
+                <div>
+                    <div class="amount">$5</div>
+
+                    <div class="bonus-title">
+                        CASH BONUS
+                    </div>
+
+                    <div class="subtitle">
+                        Instant Wallet Credit
+                    </div>
+                </div>
+
+                <button
+                    class="get-btn"
+                    onclick="claimBonus(5)"
+                >
+                    Get Now
+                </button>
+
+            </div>
 
 
-      <div class="offer orange">
+            <!-- $10 -->
+            <div class="card blue">
 
-        <div class="cashIcon">
-          💵
+                <div class="money-stack">
+                    💵
+                </div>
+
+                <div>
+                    <div class="amount">$10</div>
+
+                    <div class="bonus-title">
+                        CASH BONUS
+                    </div>
+
+                    <div class="subtitle">
+                        Instant Wallet Credit
+                    </div>
+                </div>
+
+                <button
+                    class="get-btn"
+                    onclick="claimBonus(10)"
+                >
+                    Get Now
+                </button>
+
+            </div>
+
+
+            <!-- $20 -->
+            <div class="card orange">
+
+                <div class="money-stack">
+                    💵
+                </div>
+
+                <div>
+                    <div class="amount">$20</div>
+
+                    <div class="bonus-title">
+                        CASH BONUS
+                    </div>
+
+                    <div class="subtitle">
+                        Instant Wallet Credit
+                    </div>
+                </div>
+
+                <button
+                    class="get-btn"
+                    onclick="claimBonus(20)"
+                >
+                    Get Now
+                </button>
+
+            </div>
+
         </div>
 
-        <div class="offerText">
 
-          <div>
-            <span class="amount">$20</span>
-            <span class="bonus">CASH BONUS</span>
-          </div>
+        <!-- FOOTER -->
+        <div class="footer">
 
-          <p>Instant Wallet Credit</p>
+            <div class="secure">
+                🛡️ 100% Secure
+                &nbsp; | &nbsp;
+                No Hidden Fees
+                &nbsp; | &nbsp;
+                Limited Time Offer
+            </div>
 
-          <button
-            class="get"
-            onclick="selectBonus(20)">
-            Get Now
-          </button>
+            <div class="thanks">
+                <span class="heart">♥</span>
+                Thank you for being with us!
+                <span class="heart">♥</span>
+            </div>
 
         </div>
-
-      </div>
-
 
     </div>
 
-  </div>
-
-
-  <!-- BOTTOM -->
-
-  <div class="bottom">
-
-    <div class="features">
-      <span>🛡️ 100% Secure</span>
-      <span>🔒 No Hidden Fees</span>
-      <span>◷ Limited Time Offer</span>
-    </div>
-
-    <div class="thanks">
-      <span class="heart">♥</span>
-      Thank you for being with us!
-      <span class="heart">♥</span>
-    </div>
-
-  </div>
-
+</div>
 </div>
 
 
-<div id="message"></div>
+<!-- POPUP -->
+<div class="popup" id="popup">
+
+    <div class="popup-box">
+
+        <h2 id="popupTitle">
+            $5 Cash Bonus
+        </h2>
+
+        <p>
+            This is a demo giveaway page.
+            Your claim action can be connected
+            to your own backend or wallet system.
+        </p>
+
+        <button
+            class="close"
+            onclick="closePopup()"
+        >
+            Close
+        </button>
+
+    </div>
+
+</div>
 
 
 <script>
 
 /* BONUS BUTTON */
+function claimBonus(amount){
 
-function selectBonus(amount){
+    document.getElementById("popupTitle").innerText =
+        "$" + amount + " Cash Bonus";
 
-  const message =
-    document.getElementById("message");
-
-  message.textContent =
-    "You selected the $" +
-    amount +
-    " bonus.";
-
-  message.style.display = "block";
-
-  setTimeout(function(){
-
-    message.style.display = "none";
-
-  },2500);
-
+    document.getElementById("popup").style.display =
+        "flex";
 }
 
 
-/* ONLINE USERS DEMO */
+/* CLOSE POPUP */
+function closePopup(){
 
-let online = 125;
+    document.getElementById("popup").style.display =
+        "none";
+}
 
+
+/* DEMO ONLINE USERS */
 setInterval(function(){
 
-  const change =
-    Math.random() > .5 ? 1 : -1;
+    let users =
+        document.getElementById("users");
 
-  online += change;
+    let number =
+        parseInt(users.innerText);
 
-  if(online < 100){
-    online = 100;
-  }
+    let change =
+        Math.random() > 0.5 ? 1 : -1;
 
-  document.getElementById(
-    "online"
-  ).textContent = online;
+    number += change;
 
-},3000);
+    if(number < 100){
+        number = 100;
+    }
+
+    users.innerText = number;
+
+},5000);
+
+
+/* CLOSE POPUP WHEN CLICKING OUTSIDE */
+document.getElementById("popup")
+.addEventListener("click",function(e){
+
+    if(e.target === this){
+        closePopup();
+    }
+
+});
 
 </script>
 
