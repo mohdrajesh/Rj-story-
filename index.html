@@ -3,298 +3,988 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Cash Bonus Giveaway</title>
 
-<!-- ================= CSS ================= -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
-  overflow-x: hidden;
-  text-align: center;
-  color: #fff;
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
 }
 
-/* Animated background */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+body{
+  font-family:'Montserrat',sans-serif;
+  color:white;
+  overflow-x:hidden;
 
-  background: linear-gradient(
-    270deg,
-    #00c6ff,
-    #0072ff,
-    #00ffd5,
-    #ff7eb9,
-    #ffca3a
-  );
-
-  background-size: 1000% 1000%;
-  animation: flow 20s ease infinite;
+  background:
+    radial-gradient(circle at 15% 25%,rgba(0,120,255,.35),transparent 30%),
+    radial-gradient(circle at 90% 70%,rgba(255,0,180,.25),transparent 30%),
+    linear-gradient(135deg,#030616,#07133b 50%,#02030d);
 }
 
-@keyframes flow {
-  0% {
-    background-position: 0% 50%;
-  }
+/* Animated background lights */
 
-  50% {
-    background-position: 100% 50%;
-  }
+body::before{
+  content:"";
+  position:fixed;
+  inset:-50%;
+  z-index:-2;
 
-  100% {
-    background-position: 0% 50%;
+  background:
+    radial-gradient(circle,#00aaff 0%,transparent 18%),
+    radial-gradient(circle,#ff00d4 0%,transparent 15%),
+    radial-gradient(circle,#0044ff 0%,transparent 18%);
+
+  background-size:35% 35%,30% 30%,40% 40%;
+  background-position:0% 20%,100% 80%,50% 100%;
+  background-repeat:no-repeat;
+
+  animation:bgMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+  from{
+    transform:translate(-3%,-3%) scale(1);
   }
+  to{
+    transform:translate(3%,3%) scale(1.08);
+  }
+}
+
+/* Small particles */
+
+.particle{
+  position:fixed;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#00d9ff;
+  box-shadow:0 0 15px #00d9ff;
+  opacity:.7;
+  animation:particleMove linear infinite;
+  z-index:-1;
+}
+
+@keyframes particleMove{
+  from{
+    transform:translateY(110vh);
+  }
+  to{
+    transform:translateY(-20vh);
+  }
+}
+
+/* Main */
+
+.container{
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:35px 18px 50px;
 }
 
 /* Header */
-.header {
-  padding: 50px 20px 30px;
-  text-shadow: 1px 2px 5px rgba(0,0,0,0.35);
+
+.header{
+  text-align:center;
+  margin-bottom:30px;
 }
 
-.header h1 {
-  margin: 0 0 12px;
-  font-size: 45px;
-  font-weight: 800;
+.money-icon{
+  font-size:55px;
+  display:inline-block;
+  filter:drop-shadow(0 0 15px #44ff66);
+  animation:moneyFloat 2s ease-in-out infinite;
 }
 
-.notice {
-  color: #ffe066;
-  font-size: 19px;
-  font-weight: 700;
+@keyframes moneyFloat{
+  0%,100%{
+    transform:translateY(0) rotate(-2deg);
+  }
+  50%{
+    transform:translateY(-8px) rotate(2deg);
+  }
 }
 
-.online {
-  font-size: 15px;
+.header h1{
+  margin:5px 0 0;
+
+  font-size:clamp(42px,8vw,82px);
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-2px;
+
+  color:white;
+
+  text-shadow:
+    0 4px 0 #222,
+    0 8px 25px rgba(0,0,0,.7);
 }
 
-/* Cards */
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 20px;
+.header h1 span{
+  display:block;
+  color:#08dcff;
 
-  padding: 20px;
-  max-width: 1000px;
-  margin: auto;
+  font-size:clamp(38px,7vw,72px);
+
+  font-style:italic;
+
+  text-shadow:
+    0 0 8px #00d9ff,
+    0 0 25px #008cff,
+    0 4px 0 #003a5c;
 }
 
-.card {
-  width: 280px;
-  padding: 25px 20px;
+.demo{
+  display:inline-block;
 
-  border-radius: 18px;
-  color: #fff;
+  margin-top:20px;
+  padding:8px 25px;
 
-  background: linear-gradient(
-    135deg,
-    #ff7eb9,
-    #ff758c,
-    #ffb347,
-    #00ffd5,
-    #00c6ff
+  color:#ffd438;
+
+  font-size:22px;
+  font-weight:900;
+
+  text-shadow:0 0 15px rgba(255,190,0,.5);
+}
+
+.demo::before,
+.demo::after{
+  content:"★";
+  margin:0 12px;
+}
+
+/* Online box */
+
+.stats{
+  display:flex;
+  justify-content:center;
+  margin:10px auto 35px;
+}
+
+.stats-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+
+  padding:12px 25px;
+
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:30px;
+
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+
+  box-shadow:0 0 25px rgba(0,130,255,.15);
+
+  font-size:15px;
+}
+
+.green-dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#00ff75;
+  box-shadow:0 0 12px #00ff75;
+}
+
+.online-number{
+  color:#00ff7b;
+  font-weight:900;
+}
+
+/* Offer area */
+
+.offer-area{
+  position:relative;
+
+  max-width:850px;
+  margin:0 auto;
+
+  padding:30px 20px 40px;
+
+  min-height:600px;
+
+  border-radius:30px;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,0,0,.8),
+      rgba(8,15,25,.65)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.6),
+    inset 0 0 50px rgba(0,120,255,.08);
+}
+
+/*
+  Character silhouette.
+  This is a CSS-built decorative character.
+*/
+
+.character{
+  position:absolute;
+
+  left:-100px;
+  bottom:0;
+
+  width:300px;
+  height:560px;
+
+  pointer-events:none;
+}
+
+/* head */
+
+.head{
+  position:absolute;
+  left:105px;
+  top:20px;
+
+  width:105px;
+  height:125px;
+
+  border-radius:48% 48% 45% 45%;
+
+  background:
+    linear-gradient(135deg,#f1b27d,#9d593b);
+
+  box-shadow:
+    inset -15px -5px 20px rgba(0,0,0,.3),
+    0 15px 30px rgba(0,0,0,.5);
+}
+
+/* hair */
+
+.hair{
+  position:absolute;
+
+  left:98px;
+  top:10px;
+
+  width:120px;
+  height:55px;
+
+  border-radius:70% 40% 20% 20%;
+
+  background:#10151d;
+
+  transform:rotate(-8deg);
+
+  box-shadow:0 0 12px #111;
+}
+
+/* sunglasses */
+
+.glasses{
+  position:absolute;
+
+  left:112px;
+  top:67px;
+
+  width:100px;
+  height:25px;
+
+  z-index:3;
+
+  display:flex;
+  justify-content:space-between;
+}
+
+.glasses span{
+  width:43px;
+  height:23px;
+
+  background:#050505;
+
+  border:2px solid #555;
+
+  border-radius:7px;
+
+  box-shadow:0 0 8px #000;
+}
+
+/* body */
+
+.body-man{
+  position:absolute;
+
+  left:72px;
+  top:130px;
+
+  width:170px;
+  height:350px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #050608,
+      #222630,
+      #050608
+    );
+
+  clip-path:polygon(
+    28% 0,
+    72% 0,
+    100% 35%,
+    82% 100%,
+    18% 100%,
+    0 35%
   );
 
-  background-size: 400% 400%;
-  animation: cardFlow 10s ease infinite;
+  box-shadow:0 20px 40px rgba(0,0,0,.7);
+}
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+/* Coat left */
+
+.coat-left{
+  position:absolute;
+
+  left:35px;
+  top:125px;
+
+  width:130px;
+  height:430px;
+
+  background:linear-gradient(
+    110deg,
+    #08090d,
+    #292d36,
+    #07080b
+  );
+
+  clip-path:polygon(
+    45% 0,
+    100% 5%,
+    78% 100%,
+    0 100%,
+    15% 30%
+  );
+
+  transform:rotate(4deg);
+
+  box-shadow:0 20px 40px #000;
+}
+
+/* Coat right */
+
+.coat-right{
+  position:absolute;
+
+  left:165px;
+  top:130px;
+
+  width:160px;
+  height:430px;
+
+  background:linear-gradient(
+    75deg,
+    #08090d,
+    #292d36,
+    #050609
+  );
+
+  clip-path:polygon(
+    0 5%,
+    55% 0,
+    100% 30%,
+    100% 100%,
+    20% 100%
+  );
+
+  transform:rotate(-3deg);
+
+  box-shadow:0 20px 40px #000;
+}
+
+/* Offer cards */
+
+.offers{
+  position:relative;
+
+  width:100%;
+  max-width:650px;
+
+  margin-left:auto;
+
+  z-index:5;
+}
+
+.offer{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  gap:20px;
+
+  min-height:150px;
+
+  margin-bottom:18px;
+  padding:20px 25px;
+
+  border-radius:20px;
+
+  background:rgba(3,12,13,.85);
+
+  border:1px solid rgba(0,255,120,.7);
+
+  box-shadow:
+    0 0 20px rgba(0,255,100,.15),
+    inset 0 0 25px rgba(0,255,100,.05);
+
+  overflow:hidden;
 
   transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+    transform .3s,
+    box-shadow .3s;
 }
 
-@keyframes cardFlow {
-  0% {
-    background-position: 0% 50%;
+.offer:nth-child(2){
+  border-color:#00c8ff;
+  box-shadow:0 0 20px rgba(0,190,255,.2);
+}
+
+.offer:nth-child(3){
+  border-color:#ffae00;
+  box-shadow:0 0 20px rgba(255,150,0,.2);
+}
+
+.offer:hover{
+  transform:translateX(-8px) scale(1.02);
+}
+
+.offer::after{
+  content:"";
+
+  position:absolute;
+  width:100px;
+  height:100px;
+
+  right:-30px;
+  top:-40px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.08);
+
+  filter:blur(5px);
+}
+
+/* Money graphic */
+
+.cash{
+  width:115px;
+  min-width:115px;
+
+  font-size:55px;
+
+  filter:
+    drop-shadow(0 0 8px rgba(80,255,80,.5));
+
+  animation:cashFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes cashFloat{
+  0%,100%{
+    transform:translateY(0);
   }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
+  50%{
+    transform:translateY(-5px);
   }
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+.offer-content{
+  flex:1;
+  text-align:left;
 }
 
-.card h2 {
-  margin: 10px 0 15px;
-  font-size: 28px;
+.offer-title{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.card p {
-  font-size: 16px;
-  margin-bottom: 22px;
+.amount{
+  font-size:52px;
+  font-weight:900;
+  color:#66ff7a;
+
+  text-shadow:0 0 15px rgba(0,255,80,.4);
 }
 
-/* Buttons */
-.button {
-  background: #fff;
-  color: #0072ff;
-
-  padding: 13px 28px;
-
-  border: none;
-  border-radius: 50px;
-
-  cursor: pointer;
-
-  font-size: 16px;
-  font-weight: 700;
-
-  transition: all 0.3s;
+.offer:nth-child(2) .amount{
+  color:#00d9ff;
 }
 
-.button:hover {
-  background: #0072ff;
-  color: #fff;
-  transform: scale(1.05);
+.offer:nth-child(3) .amount{
+  color:#ffad22;
+}
+
+.bonus{
+  font-size:22px;
+  font-weight:800;
+}
+
+.offer p{
+  margin:8px 0 15px;
+
+  color:#ddd;
+
+  font-size:15px;
+}
+
+/* Button */
+
+.button{
+  border:0;
+  border-radius:12px;
+
+  padding:11px 35px;
+
+  color:white;
+
+  font-size:17px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  background:linear-gradient(
+    180deg,
+    #36ff65,
+    #08bd42
+  );
+
+  box-shadow:
+    0 0 15px rgba(0,255,90,.35),
+    inset 0 1px rgba(255,255,255,.4);
+
+  transition:all .25s;
+}
+
+.offer:nth-child(2) .button{
+  background:linear-gradient(
+    180deg,
+    #20d9ff,
+    #008cff
+  );
+
+  box-shadow:0 0 15px rgba(0,180,255,.4);
+}
+
+.offer:nth-child(3) .button{
+  background:linear-gradient(
+    180deg,
+    #ffb51c,
+    #ff7000
+  );
+
+  box-shadow:0 0 15px rgba(255,130,0,.4);
+}
+
+.button:hover{
+  transform:scale(1.06);
+}
+
+.button:active{
+  transform:scale(.96);
 }
 
 /* Message */
-#message {
-  display: none;
 
-  margin: 25px auto;
-  padding: 15px 20px;
+#message{
+  display:none;
 
-  max-width: 500px;
+  margin:25px auto 0;
+  padding:14px 20px;
 
-  border-radius: 12px;
+  max-width:550px;
 
-  background: rgba(0,0,0,0.35);
+  border-radius:15px;
 
-  font-weight: 600;
+  background:rgba(0,0,0,.55);
+
+  border:1px solid rgba(255,255,255,.2);
+
+  font-weight:700;
+}
+
+/* Footer */
+
+.footer{
+  text-align:center;
+
+  margin-top:35px;
+
+  color:#ddd;
+
+  font-size:14px;
+}
+
+.footer strong{
+  color:white;
+}
+
+.thanks{
+  margin-top:15px;
+
+  font-size:17px;
+  font-weight:700;
 }
 
 /* Mobile */
-@media (max-width: 600px) {
 
-  .header {
-    padding-top: 35px;
+@media(max-width:850px){
+
+  .character{
+    opacity:.18;
+    left:-90px;
+    transform:scale(.8);
+    transform-origin:bottom left;
   }
 
-  .header h1 {
-    font-size: 32px;
+  .offers{
+    max-width:100%;
   }
 
-  .notice {
-    font-size: 17px;
+  .offer{
+    margin-left:0;
+  }
+}
+
+@media(max-width:600px){
+
+  .container{
+    padding:25px 12px 40px;
   }
 
-  .card {
-    width: 90%;
-    max-width: 320px;
+  .header h1{
+    letter-spacing:-1px;
+  }
+
+  .stats-box{
+    flex-wrap:wrap;
+    gap:8px 12px;
+    font-size:12px;
+  }
+
+  .offer-area{
+    padding:20px 10px 30px;
+  }
+
+  .offer{
+    min-height:130px;
+    padding:16px 12px;
+    gap:10px;
+  }
+
+  .cash{
+    width:70px;
+    min-width:70px;
+    font-size:40px;
+  }
+
+  .amount{
+    font-size:36px;
+  }
+
+  .bonus{
+    font-size:15px;
+  }
+
+  .offer p{
+    font-size:12px;
+    margin:5px 0 10px;
+  }
+
+  .button{
+    padding:9px 20px;
+    font-size:14px;
+  }
+
+  .character{
+    left:-150px;
+    opacity:.12;
   }
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- ================= HTML ================= -->
+<!-- Background particles -->
 
-<div class="header">
+<div class="particle" style="left:10%;animation-duration:8s;"></div>
+<div class="particle" style="left:25%;animation-duration:12s;"></div>
+<div class="particle" style="left:42%;animation-duration:9s;"></div>
+<div class="particle" style="left:65%;animation-duration:14s;"></div>
+<div class="particle" style="left:82%;animation-duration:10s;"></div>
 
-  <h1>💵 Cash Bonus Giveaway</h1>
 
-  <p class="notice">
-    Demo Giveaway
-  </p>
+<div class="container">
 
-  <p class="online">
-    Users Online:
-    <b id="onlineUsers">123</b>
-    |
-    Last Update: Aug 2026
-  </p>
+  <!-- Header -->
+
+  <header class="header">
+
+    <div class="money-icon">💵</div>
+
+    <h1>
+      CASH BONUS
+      <span>GIVEAWAY</span>
+    </h1>
+
+    <div class="demo">
+      DEMO GIVEAWAY
+    </div>
+
+  </header>
+
+
+  <!-- Stats -->
+
+  <div class="stats">
+
+    <div class="stats-box">
+
+      <span class="green-dot"></span>
+
+      <span>
+        Users Online:
+        <strong
+          class="online-number"
+          id="onlineUsers">
+          125
+        </strong>
+      </span>
+
+      <span>|</span>
+
+      <span>
+        📅 Last Update:
+        <strong>Aug 2026</strong>
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- Main offer section -->
+
+  <section class="offer-area">
+
+
+    <!-- CSS character -->
+
+    <div class="character">
+
+      <div class="hair"></div>
+
+      <div class="head"></div>
+
+      <div class="glasses">
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="body-man"></div>
+
+      <div class="coat-left"></div>
+
+      <div class="coat-right"></div>
+
+    </div>
+
+
+    <!-- Offers -->
+
+    <div class="offers">
+
+
+      <!-- $5 -->
+
+      <div class="offer">
+
+        <div class="cash">
+          💵
+        </div>
+
+        <div class="offer-content">
+
+          <div class="offer-title">
+
+            <span class="amount">
+              $5
+            </span>
+
+            <span class="bonus">
+              CASH BONUS
+            </span>
+
+          </div>
+
+          <p>
+            Instant Wallet Credit
+          </p>
+
+          <button
+            class="button"
+            onclick="getBonus(5)">
+            Get Now
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- $10 -->
+
+      <div class="offer">
+
+        <div class="cash">
+          💵
+        </div>
+
+        <div class="offer-content">
+
+          <div class="offer-title">
+
+            <span class="amount">
+              $10
+            </span>
+
+            <span class="bonus">
+              CASH BONUS
+            </span>
+
+          </div>
+
+          <p>
+            Instant Wallet Credit
+          </p>
+
+          <button
+            class="button"
+            onclick="getBonus(10)">
+            Get Now
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- $20 -->
+
+      <div class="offer">
+
+        <div class="cash">
+          💵
+        </div>
+
+        <div class="offer-content">
+
+          <div class="offer-title">
+
+            <span class="amount">
+              $20
+            </span>
+
+            <span class="bonus">
+              CASH BONUS
+            </span>
+
+          </div>
+
+          <p>
+            Instant Wallet Credit
+          </p>
+
+          <button
+            class="button"
+            onclick="getBonus(20)">
+            Get Now
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div id="message"></div>
+
+  </section>
+
+
+  <!-- Footer -->
+
+  <footer class="footer">
+
+    <div>
+      🛡️ <strong>Demo Page</strong>
+      &nbsp; | &nbsp;
+      No Payment Required
+      &nbsp; | &nbsp;
+      Test Offer
+    </div>
+
+    <div class="thanks">
+      ❤️ Thank you for being with us! ❤️
+    </div>
+
+  </footer>
 
 </div>
-
-
-<div class="card-container">
-
-  <div class="card">
-
-    <h2>$5 Cash Bonus</h2>
-
-    <p>
-      Instant Wallet Credit
-    </p>
-
-    <button
-      class="button"
-      onclick="getBonus(5)">
-      Get Now
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>$10 Cash Bonus</h2>
-
-    <p>
-      Instant Wallet Credit
-    </p>
-
-    <button
-      class="button"
-      onclick="getBonus(10)">
-      Get Now
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>$20 Cash Bonus</h2>
-
-    <p>
-      Instant Wallet Credit
-    </p>
-
-    <button
-      class="button"
-      onclick="getBonus(20)">
-      Get Now
-    </button>
-
-  </div>
-
-</div>
-
-
-<div id="message"></div>
 
 
 <!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
-function getBonus(amount) {
+/* Demo online counter */
+
+let users = 125;
+
+setInterval(function(){
+
+  const change =
+    Math.random() > 0.5 ? 1 : -1;
+
+  users += change;
+
+  if(users < 100){
+    users = 100;
+  }
+
+  document.getElementById(
+    "onlineUsers"
+  ).textContent = users;
+
+},3000);
+
+
+/* Demo offer button */
+
+function getBonus(amount){
 
   const message =
     document.getElementById("message");
@@ -304,31 +994,14 @@ function getBonus(amount) {
   message.innerHTML =
     "You selected the $" +
     amount +
-    " cash bonus.";
+    " demo bonus.";
+
+  message.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
 
 }
-
-
-/* Demo online counter */
-
-let users = 123;
-
-setInterval(function() {
-
-  const change =
-    Math.random() > 0.5 ? 1 : -1;
-
-  users += change;
-
-  if (users < 100) {
-    users = 100;
-  }
-
-  document.getElementById(
-    "onlineUsers"
-  ).textContent = users;
-
-}, 3000);
 
 </script>
 
