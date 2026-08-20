@@ -1,843 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Cash Bonus Giveaway</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    min-height:100vh;
-    background:#030615;
-    font-family:Arial, Helvetica, sans-serif;
-    color:white;
-    overflow-x:hidden;
-}
-
-/* BACKGROUND */
-.page{
-    min-height:100vh;
-    position:relative;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 80% 20%, rgba(0,80,255,.25), transparent 30%),
-        radial-gradient(circle at 10% 70%, rgba(180,0,255,.25), transparent 35%),
-        linear-gradient(135deg,#02030d,#05051d 50%,#02030b);
-}
-
-.page::before{
-    content:"";
-    position:absolute;
-    inset:-50%;
-    background:
-        linear-gradient(115deg,
-        transparent 45%,
-        rgba(0,130,255,.15) 46%,
-        transparent 47%),
-        linear-gradient(70deg,
-        transparent 48%,
-        rgba(190,0,255,.13) 49%,
-        transparent 50%);
-    animation:bgMove 12s linear infinite;
-}
-
-@keyframes bgMove{
-    from{transform:translate(0,0)}
-    to{transform:translate(150px,80px)}
-}
-
-/* MAIN */
-.container{
-    position:relative;
-    z-index:2;
-    width:min(1450px,94%);
-    min-height:100vh;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:44% 56%;
-    align-items:center;
-    gap:20px;
-
-    padding:40px 20px 25px;
-}
-
-/* CHARACTER */
-.character-area{
-    height:900px;
-    position:relative;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-}
-
-.character-area::after{
-    content:"";
-    position:absolute;
-    bottom:15px;
-    left:10%;
-    right:10%;
-    height:70px;
-
-    background:radial-gradient(
-        ellipse,
-        rgba(0,120,255,.5),
-        rgba(180,0,255,.25),
-        transparent 70%
-    );
-
-    filter:blur(18px);
-}
-
-.character{
-    position:relative;
-    z-index:3;
-    width:100%;
-    max-width:620px;
-    height:100%;
-    object-fit:contain;
-    object-position:left bottom;
-
-    filter:
-        drop-shadow(0 0 20px rgba(0,90,255,.18))
-        drop-shadow(0 0 40px rgba(180,0,255,.12));
-
-    animation:characterFloat 4s ease-in-out infinite;
-}
-
-@keyframes characterFloat{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-7px);
-    }
-}
-
-/* RIGHT CONTENT */
-.content{
-    position:relative;
-    z-index:5;
-    padding:10px;
-}
-
-/* HEADER */
-.header{
-    text-align:center;
-    margin-bottom:22px;
-}
-
-.money{
-    font-size:55px;
-    display:inline-block;
-    transform:rotate(-7deg);
-    filter:drop-shadow(0 5px 8px rgba(0,0,0,.5));
-    margin-right:10px;
-}
-
-.cash{
-    font-size:clamp(42px,5vw,78px);
-    font-weight:1000;
-    letter-spacing:-3px;
-
-    background:linear-gradient(
-        180deg,
-        #ffffff,
-        #d8e4ef,
-        #8da0b3
-    );
-
-    -webkit-background-clip:text;
-    color:transparent;
-
-    text-shadow:0 5px 15px rgba(255,255,255,.15);
-}
-
-.giveaway{
-    margin-top:3px;
-
-    font-size:clamp(48px,6vw,88px);
-    font-weight:1000;
-    font-style:italic;
-    letter-spacing:-4px;
-
-    color:#18eaff;
-
-    text-shadow:
-        0 0 5px #00eaff,
-        0 0 15px #00bfff,
-        0 0 30px rgba(0,220,255,.8);
-
-    transform:skew(-5deg);
-}
-
-.demo{
-    margin-top:10px;
-    color:#ffd42e;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:2px;
-
-    text-shadow:0 0 12px rgba(255,210,40,.6);
-}
-
-/* STATUS */
-.status{
-    max-width:720px;
-    margin:22px auto 28px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-
-    padding:16px 25px;
-
-    border:1px solid rgba(150,170,210,.45);
-    border-radius:30px;
-
-    background:rgba(4,8,25,.72);
-    backdrop-filter:blur(10px);
-
-    box-shadow:
-        inset 0 0 20px rgba(0,130,255,.08),
-        0 0 25px rgba(0,50,150,.12);
-}
-
-.status span{
-    color:#ddd;
-}
-
-.online{
-    color:#00ff71 !important;
-    font-weight:bold;
-}
-
-.dot{
-    display:inline-block;
-    width:11px;
-    height:11px;
-    background:#00ff65;
-    border-radius:50%;
-    margin-right:7px;
-    box-shadow:0 0 12px #00ff65;
-}
-
-.line{
-    width:1px;
-    height:25px;
-    background:#657080;
-}
-
-/* BONUS CARDS */
-.cards{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-}
-
-.card{
-    position:relative;
-    min-height:175px;
-
-    display:grid;
-    grid-template-columns:125px 1fr auto;
-    align-items:center;
-    gap:18px;
-
-    padding:22px 28px;
-
-    border-radius:22px;
-    overflow:hidden;
-
-    background:rgba(3,15,15,.72);
-    backdrop-filter:blur(12px);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-}
-
-.card:hover{
-    transform:translateY(-5px) scale(1.01);
-}
-
-/* CARD GLOW */
-.card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:22px;
-    padding:2px;
-
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,.8),
-        transparent
-    );
-
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite:xor;
-    mask-composite:exclude;
-
-    opacity:.45;
-}
-
-/* GREEN */
-.card.green{
-    border:1px solid #43ff63;
-    box-shadow:
-        0 0 15px rgba(40,255,80,.25),
-        inset 0 0 30px rgba(20,255,80,.08);
-}
-
-/* BLUE */
-.card.blue{
-    border:1px solid #18cfff;
-    background:rgba(0,20,35,.75);
-
-    box-shadow:
-        0 0 15px rgba(0,180,255,.3),
-        inset 0 0 30px rgba(0,160,255,.08);
-}
-
-/* ORANGE */
-.card.orange{
-    border:1px solid #ffae2c;
-    background:rgba(30,16,3,.75);
-
-    box-shadow:
-        0 0 15px rgba(255,150,20,.3),
-        inset 0 0 30px rgba(255,130,0,.08);
-}
-
-/* MONEY ICON */
-.money-stack{
-    font-size:70px;
-    text-align:center;
-
-    filter:
-        drop-shadow(0 8px 6px rgba(0,0,0,.5))
-        drop-shadow(0 0 8px rgba(40,255,100,.15));
-}
-
-/* TEXT */
-.amount{
-    font-size:58px;
-    font-weight:1000;
-    line-height:1;
-}
-
-.green .amount{
-    color:#67ff75;
-    text-shadow:0 0 15px rgba(50,255,80,.5);
-}
-
-.blue .amount{
-    color:#18d9ff;
-    text-shadow:0 0 15px rgba(0,200,255,.5);
-}
-
-.orange .amount{
-    color:#ffad21;
-    text-shadow:0 0 15px rgba(255,150,0,.5);
-}
-
-.bonus-title{
-    font-size:26px;
-    font-weight:900;
-    margin-top:5px;
-}
-
-.subtitle{
-    color:#ddd;
-    font-size:17px;
-    margin-top:8px;
-}
-
-/* BUTTON */
-.get-btn{
-    border:0;
-    border-radius:13px;
-
-    padding:14px 32px;
-
-    color:white;
-    font-size:18px;
-    font-weight:900;
-
-    cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-.get-btn:hover{
-    transform:scale(1.06);
-}
-
-.green .get-btn{
-    background:linear-gradient(135deg,#18df50,#5cff76);
-    box-shadow:0 0 20px rgba(30,255,80,.35);
-}
-
-.blue .get-btn{
-    background:linear-gradient(135deg,#04a8ed,#21d5ff);
-    box-shadow:0 0 20px rgba(0,180,255,.35);
-}
-
-.orange .get-btn{
-    background:linear-gradient(135deg,#ff8b00,#ffb52d);
-    box-shadow:0 0 20px rgba(255,140,0,.35);
-}
-
-/* FOOTER */
-.footer{
-    text-align:center;
-    margin-top:30px;
-    color:#d3d3d3;
-    font-size:15px;
-}
-
-.secure{
-    margin-bottom:12px;
-}
-
-.thanks{
-    font-size:18px;
-}
-
-.heart{
-    color:#ff3030;
-    font-size:21px;
-    margin:0 5px;
-}
-
-/* POPUP */
-.popup{
-    position:fixed;
-    inset:0;
-    z-index:100;
-
-    display:none;
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(0,0,0,.78);
-    backdrop-filter:blur(8px);
-}
-
-.popup-box{
-    width:min(430px,90%);
-    text-align:center;
-
-    padding:35px;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(10,20,40,.98),
-            rgba(3,5,18,.98)
-        );
-
-    border:1px solid #19d8ff;
-
-    box-shadow:
-        0 0 40px rgba(0,180,255,.3);
-}
-
-.popup-box h2{
-    color:#1eeaff;
-    font-size:30px;
-    margin-bottom:12px;
-}
-
-.popup-box p{
-    color:#ddd;
-    line-height:1.6;
-}
-
-.close{
-    margin-top:22px;
-    padding:12px 30px;
-
-    border:0;
-    border-radius:10px;
-
-    background:#13bfff;
-    color:white;
-
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-
-    .container{
-        grid-template-columns:1fr;
-        padding-top:20px;
-    }
-
-    .character-area{
-        height:480px;
-        order:1;
-    }
-
-    .character{
-        max-width:500px;
-    }
-
-    .content{
-        order:2;
-    }
-
-    .cash{
-        font-size:45px;
-    }
-
-    .giveaway{
-        font-size:55px;
-    }
-
-    .card{
-        grid-template-columns:85px 1fr;
-        padding:18px;
-    }
-
-    .money-stack{
-        font-size:50px;
-    }
-
-    .amount{
-        font-size:45px;
-    }
-
-    .get-btn{
-        grid-column:1 / -1;
-        width:100%;
-    }
-
-    .status{
-        font-size:13px;
-        gap:10px;
-        padding:13px;
-    }
-}
-
-@media(max-width:480px){
-
-    .character-area{
-        height:400px;
-    }
-
-    .cash{
-        font-size:36px;
-        letter-spacing:-2px;
-    }
-
-    .giveaway{
-        font-size:43px;
-    }
-
-    .demo{
-        font-size:16px;
-    }
-
-    .card{
-        min-height:160px;
-    }
-
-    .bonus-title{
-        font-size:21px;
-    }
-
-    .subtitle{
-        font-size:14px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cash Bonus Giveaway</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            background: #02030b;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           MAIN WEBSITE
+        ========================================= */
+
+        .website {
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #080b24 0%,
+                    #02030b 70%
+                );
+
+            padding: 0;
+        }
+
+
+        /* =========================================
+           POSTER
+        ========================================= */
+
+        .poster {
+            position: relative;
+
+            width: 100%;
+            max-width: 1024px;
+
+            aspect-ratio: 1024 / 1536;
+
+            overflow: hidden;
+
+            background: #030615;
+        }
+
+
+        /* EXACT DESIGN IMAGE */
+
+        .poster-image {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            left: 0;
+            top: 0;
+
+            object-fit: cover;
+
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+
+        /* =========================================
+           CLICKABLE OFFER AREAS
+           
+           These are transparent buttons placed
+           exactly over the three "Get Now" buttons.
+        ========================================= */
+
+        .offer-button {
+            position: absolute;
+
+            border: 0;
+            outline: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            border-radius: 20px;
+
+            transition:
+                background .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        /*
+           $5 BUTTON POSITION
+           Based on your uploaded design
+        */
+
+        .offer-5 {
+            left: 57.5%;
+            top: 42.4%;
+
+            width: 19%;
+            height: 4.5%;
+        }
+
+
+        /*
+           $10 BUTTON POSITION
+        */
+
+        .offer-10 {
+            left: 57.5%;
+            top: 58.3%;
+
+            width: 19%;
+            height: 4.5%;
+        }
+
+
+        /*
+           $20 BUTTON POSITION
+        */
+
+        .offer-20 {
+            left: 57.5%;
+            top: 73.9%;
+
+            width: 19%;
+            height: 4.5%;
+        }
+
+
+        /* Hover effect */
+
+        .offer-button:hover {
+            background: rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 0 18px rgba(0,220,255,0.35),
+                inset 0 0 10px rgba(255,255,255,0.08);
+        }
+
+
+        .offer-button:active {
+            transform: scale(.96);
+        }
+
+
+        /* =========================================
+           OPTIONAL: INVISIBLE STATUS HOTSPOT
+        ========================================= */
+
+        .status-area {
+            position: absolute;
+
+            left: 43%;
+            top: 22.2%;
+
+            width: 52%;
+            height: 5%;
+
+            z-index: 5;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================
+           POPUP
+        ========================================= */
+
+        .popup {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 999;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(0,0,0,.82);
+
+            backdrop-filter: blur(8px);
+        }
+
+
+        .popup.active {
+            display: flex;
+        }
+
+
+        .popup-box {
+            width: min(420px, 92vw);
+
+            padding: 30px;
+
+            text-align: center;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #07182b,
+                    #030713
+                );
+
+            border: 1px solid #16d9ff;
+
+            box-shadow:
+                0 0 25px rgba(0,200,255,.35),
+                0 0 70px rgba(0,100,255,.18);
+
+            color: white;
+
+            animation: popupIn .25s ease;
+        }
+
+
+        @keyframes popupIn {
+
+            from {
+                opacity: 0;
+                transform: scale(.85);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
+
+
+        .popup-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+
+        .popup-title {
+            font-size: 27px;
+            font-weight: 900;
+
+            color: #20e7ff;
+
+            margin-bottom: 12px;
+        }
+
+
+        .popup-text {
+            color: #d8d8d8;
+
+            line-height: 1.6;
+
+            font-size: 15px;
+        }
+
+
+        .close-button {
+            margin-top: 22px;
+
+            border: 0;
+
+            padding: 12px 28px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00aeea,
+                    #18ddff
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+
+        .close-button:hover {
+            box-shadow:
+                0 0 20px rgba(0,220,255,.45);
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .website {
+                padding: 0;
+            }
+
+            .poster {
+                width: 100%;
+            }
+
+            .offer-button {
+                border-radius: 12px;
+            }
+
+        }
+
+
+        /* =========================================
+           DESKTOP
+        ========================================= */
+
+        @media (min-width: 1025px) {
+
+            .poster {
+                margin: 20px 0;
+                border-radius: 8px;
+
+                box-shadow:
+                    0 0 40px rgba(0,0,0,.7),
+                    0 0 100px rgba(20,0,100,.2);
+            }
+
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-<div class="page">
 
-<div class="container">
+    <main class="website">
 
-    <!-- CHARACTER -->
-    <div class="character-area">
+        <section class="poster">
 
-        <!--
-        IMPORTANT:
-        Apni reference image ko "reference.png"
-        naam se isi folder me rakhein.
-        -->
+            <!--
+                IMPORTANT:
 
-        <img
-            src="reference.png"
-            class="character"
-            alt="Cash Bonus Character"
-        >
+                Rename your uploaded design to:
 
-    </div>
+                design.png
+
+                and keep it beside this index.html file.
+            -->
+
+            <img
+                src="design.png"
+                class="poster-image"
+                alt="Cash Bonus Giveaway"
+            >
 
 
-    <!-- RIGHT CONTENT -->
-    <div class="content">
+            <!-- =====================================
+                 $5 GET NOW
+            ====================================== -->
 
-        <div class="header">
+            <button
+                class="offer-button offer-5"
+                aria-label="Claim $5 Cash Bonus"
+                onclick="openBonus(5)"
+            ></button>
 
-            <div>
-                <span class="money">💵</span>
-                <span class="cash">CASH BONUS</span>
+
+            <!-- =====================================
+                 $10 GET NOW
+            ====================================== -->
+
+            <button
+                class="offer-button offer-10"
+                aria-label="Claim $10 Cash Bonus"
+                onclick="openBonus(10)"
+            ></button>
+
+
+            <!-- =====================================
+                 $20 GET NOW
+            ====================================== -->
+
+            <button
+                class="offer-button offer-20"
+                aria-label="Claim $20 Cash Bonus"
+                onclick="openBonus(20)"
+            ></button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         POPUP
+    ========================================= -->
+
+    <div
+        class="popup"
+        id="popup"
+    >
+
+        <div class="popup-box">
+
+            <div class="popup-icon">
+                💵
             </div>
 
-            <div class="giveaway">
-                GIVEAWAY
+            <div
+                class="popup-title"
+                id="popupTitle"
+            >
+                $5 Cash Bonus
             </div>
 
-            <div class="demo">
-                ★ DEMO GIVEAWAY ★
-            </div>
+            <p class="popup-text">
+                You selected the cash bonus offer.
+                Connect this button to your own
+                website page or backend here.
+            </p>
 
-        </div>
-
-
-        <!-- STATUS -->
-        <div class="status">
-
-            <span>
-                <span class="dot"></span>
-                Users Online:
-                <span class="online" id="users">
-                    125
-                </span>
-            </span>
-
-            <span class="line"></span>
-
-            <span>
-                📅 Last Update:
-                <b>Aug 2026</b>
-            </span>
-
-        </div>
-
-
-        <!-- BONUS CARDS -->
-        <div class="cards">
-
-            <!-- $5 -->
-            <div class="card green">
-
-                <div class="money-stack">
-                    💵
-                </div>
-
-                <div>
-                    <div class="amount">$5</div>
-
-                    <div class="bonus-title">
-                        CASH BONUS
-                    </div>
-
-                    <div class="subtitle">
-                        Instant Wallet Credit
-                    </div>
-                </div>
-
-                <button
-                    class="get-btn"
-                    onclick="claimBonus(5)"
-                >
-                    Get Now
-                </button>
-
-            </div>
-
-
-            <!-- $10 -->
-            <div class="card blue">
-
-                <div class="money-stack">
-                    💵
-                </div>
-
-                <div>
-                    <div class="amount">$10</div>
-
-                    <div class="bonus-title">
-                        CASH BONUS
-                    </div>
-
-                    <div class="subtitle">
-                        Instant Wallet Credit
-                    </div>
-                </div>
-
-                <button
-                    class="get-btn"
-                    onclick="claimBonus(10)"
-                >
-                    Get Now
-                </button>
-
-            </div>
-
-
-            <!-- $20 -->
-            <div class="card orange">
-
-                <div class="money-stack">
-                    💵
-                </div>
-
-                <div>
-                    <div class="amount">$20</div>
-
-                    <div class="bonus-title">
-                        CASH BONUS
-                    </div>
-
-                    <div class="subtitle">
-                        Instant Wallet Credit
-                    </div>
-                </div>
-
-                <button
-                    class="get-btn"
-                    onclick="claimBonus(20)"
-                >
-                    Get Now
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOOTER -->
-        <div class="footer">
-
-            <div class="secure">
-                🛡️ 100% Secure
-                &nbsp; | &nbsp;
-                No Hidden Fees
-                &nbsp; | &nbsp;
-                Limited Time Offer
-            </div>
-
-            <div class="thanks">
-                <span class="heart">♥</span>
-                Thank you for being with us!
-                <span class="heart">♥</span>
-            </div>
+            <button
+                class="close-button"
+                onclick="closeBonus()"
+            >
+                Continue
+            </button>
 
         </div>
 
     </div>
 
-</div>
-</div>
+
+    <script>
+
+        /* =========================================
+           OPEN BONUS
+        ========================================= */
+
+        function openBonus(amount) {
+
+            document.getElementById("popupTitle").innerText =
+                "$" + amount + " Cash Bonus";
+
+            document
+                .getElementById("popup")
+                .classList.add("active");
+        }
 
 
-<!-- POPUP -->
-<div class="popup" id="popup">
+        /* =========================================
+           CLOSE BONUS
+        ========================================= */
 
-    <div class="popup-box">
+        function closeBonus() {
 
-        <h2 id="popupTitle">
-            $5 Cash Bonus
-        </h2>
-
-        <p>
-            This is a demo giveaway page.
-            Your claim action can be connected
-            to your own backend or wallet system.
-        </p>
-
-        <button
-            class="close"
-            onclick="closePopup()"
-        >
-            Close
-        </button>
-
-    </div>
-
-</div>
+            document
+                .getElementById("popup")
+                .classList.remove("active");
+        }
 
 
-<script>
+        /* =========================================
+           CLOSE WHEN CLICKING OUTSIDE
+        ========================================= */
 
-/* BONUS BUTTON */
-function claimBonus(amount){
+        document
+            .getElementById("popup")
+            .addEventListener("click", function(event) {
 
-    document.getElementById("popupTitle").innerText =
-        "$" + amount + " Cash Bonus";
+                if (event.target === this) {
+                    closeBonus();
+                }
 
-    document.getElementById("popup").style.display =
-        "flex";
-}
-
-
-/* CLOSE POPUP */
-function closePopup(){
-
-    document.getElementById("popup").style.display =
-        "none";
-}
+            });
 
 
-/* DEMO ONLINE USERS */
-setInterval(function(){
+        /* =========================================
+           ESC KEY
+        ========================================= */
 
-    let users =
-        document.getElementById("users");
+        document.addEventListener("keydown", function(event) {
 
-    let number =
-        parseInt(users.innerText);
+            if (event.key === "Escape") {
+                closeBonus();
+            }
 
-    let change =
-        Math.random() > 0.5 ? 1 : -1;
+        });
 
-    number += change;
-
-    if(number < 100){
-        number = 100;
-    }
-
-    users.innerText = number;
-
-},5000);
-
-
-/* CLOSE POPUP WHEN CLICKING OUTSIDE */
-document.getElementById("popup")
-.addEventListener("click",function(e){
-
-    if(e.target === this){
-        closePopup();
-    }
-
-});
-
-</script>
+    </script>
 
 </body>
 </html>
